@@ -125,6 +125,17 @@ suppress-none-returning = true
   "ARG002", # Unused args in permission overrides (Django signature)
   "RUF012", # Mutable class attributes are Django admin pattern
 ]
+"**/api.py" = [
+  "ANN",     # Ninja view signatures are typed via schemas, not annotations
+  "ARG001",  # request param required by Ninja but not always used
+  "B008",    # Query() in defaults is the Ninja pattern
+  "PLR0913", # Ninja views with many query params
+  "TC003",   # Ninja uses types at runtime for query param parsing
+]
+"**/schemas.py" = [
+  "RUF012", # Pydantic schemas use mutable defaults
+  "TC003",  # Pydantic needs stdlib types at runtime
+]
 
 # --- MyPy ---
 
