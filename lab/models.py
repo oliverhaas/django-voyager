@@ -36,7 +36,7 @@ class Accelerator(models.Model):
 
 
 class ExperimentCategory(TreeNode):
-    name = models.CharField(max_length=200)
+    name: models.CharField[str, str] = models.CharField(max_length=200)
 
     class Meta:
         verbose_name_plural = "experiment categories"

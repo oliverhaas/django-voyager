@@ -1,3 +1,5 @@
+import tempfile
+
 from .base import *
 
 # Faster password hashing for tests
@@ -14,3 +16,6 @@ CACHES = {
 
 # Disable cachalot in tests to avoid cache interference
 CACHALOT_ENABLED = False
+
+# Use temp directory for media files in tests
+MEDIA_ROOT = tempfile.mkdtemp()
