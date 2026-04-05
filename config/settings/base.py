@@ -33,6 +33,8 @@ INSTALLED_APPS = [
     "pghistory",
     "pgtrigger",
     "waffle",
+    # Project apps
+    "lab",
 ]
 
 # --- Middleware ---

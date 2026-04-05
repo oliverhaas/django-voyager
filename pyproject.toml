@@ -92,20 +92,22 @@ suppress-none-returning = true
 
 [tool.ruff.lint.per-file-ignores]
 "tests/**" = [
-  "ANN",    # Type annotations not required in tests
-  "ARG",    # Unused arguments common in fixtures
-  "DTZ005", # Timezone-naive datetime okay in tests
-  "F841",   # Unused variables okay in tests
-  "FBT",    # Boolean args fine in test fixtures
-  "PT006",  # Parametrize tuple style is preference
-  "PT011",  # Broad pytest.raises okay in some tests
-  "PT013",  # pytest import style is preference
-  "PT018",  # Compound assertions okay in tests
-  "RUF002", # Unicode in docstrings is fine
-  "RUF015", # next(iter()) vs slice is preference
-  "S101",   # assert in tests
-  "S105",   # Hardcoded passwords in test settings
-  "S311",   # random is fine for tests
+  "ANN",     # Type annotations not required in tests
+  "ARG",     # Unused arguments common in fixtures
+  "DTZ005",  # Timezone-naive datetime okay in tests
+  "F841",    # Unused variables okay in tests
+  "FBT",     # Boolean args fine in test fixtures
+  "PLC0415", # Imports inside test functions for scoping
+  "PT006",   # Parametrize tuple style is preference
+  "PT011",   # Broad pytest.raises okay in some tests
+  "PT013",   # pytest import style is preference
+  "PT018",   # Compound assertions okay in tests
+  "RUF002",  # Unicode in docstrings is fine
+  "RUF015",  # next(iter()) vs slice is preference
+  "S101",    # assert in tests
+  "S105",    # Hardcoded passwords in test settings
+  "S311",    # random is fine for tests
+  "SLF001",  # Private member access for testing internal state
 ]
 "config/settings/**" = [
   "F403", # Wildcard imports for settings splitting
@@ -114,6 +116,9 @@ suppress-none-returning = true
 ]
 "manage.py" = [
   "PLC0415", # Import inside function is Django's manage.py pattern
+]
+"**/migrations/**" = [
+  "RUF012", # Mutable class attributes are Django migration pattern
 ]
 
 # --- MyPy ---
@@ -172,7 +177,7 @@ invalid-assignment = "ignore"
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "config.settings.test"
-addopts = "--cov=config --cov-report=term-missing --no-cov-on-fail"
+addopts = "--cov=config --cov=lab --cov-report=term-missing --no-cov-on-fail"
 pythonpath = ["."]
 testpaths = ["tests"]
 xfail_strict = true

@@ -18,7 +18,7 @@ services:
   valkey:
     image: valkey/valkey:8
     ports:
-      - "6379:6379"
+      - "6399:6379"
     volumes:
       - valkey_data:/data
     healthcheck:
