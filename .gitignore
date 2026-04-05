@@ -23,6 +23,7 @@ __pycache__/
 *.sqlite3-wal
 local_settings.py
 media/
+event_images/
 
 # Testing
 .coverage
