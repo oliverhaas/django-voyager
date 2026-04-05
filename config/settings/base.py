@@ -14,11 +14,6 @@ ALLOWED_HOSTS: list[str] = []
 INSTALLED_APPS = [
     # Django admin (via django-adminx)
     "django_adminx.admin",
-    # TODO(integration): unfold conflicts with django-adminx placeholder stubs at import time.
-    # Unfold imports django.contrib.admin.AdminSite at module level, before adminx can replace
-    # the stubs in ready(). Needs a fix in django-adminx to populate placeholder attributes.
-    # "unfold",
-    # "unfold.contrib.import_export",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",

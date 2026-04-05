@@ -308,23 +308,38 @@ wheels = [
 
 [[package]]
 name = "django-adminx"
-version = "2.0.3"
-source = { registry = "https://pypi.org/simple" }
+version = "0.1.0a1"
+source = { editable = "../django-adminx" }
 dependencies = [
     { name = "django" },
-    { name = "django-crispy-forms" },
-    { name = "django-formtools" },
-    { name = "django-import-export" },
-    { name = "django-reversion" },
-    { name = "future" },
-    { name = "httplib2" },
-    { name = "six" },
-    { name = "xlsxwriter" },
-    { name = "xlwt" },
+    { name = "django-stubs-ext" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/f4/e0/ece4137d53369bfb807e4e18073ac92cf4bdc9f5ef3ce829e1bc2aa3aab6/django-adminx-2.0.3.tar.gz", hash = "sha256:6ef203ce8cb405b4e182f64bb36c8123e1fa13b1bacd8d9a5de539a152501b29", size = 92743, upload-time = "2018-06-04T04:46:33.283Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/69/0f/7c4960a3048351e941adfed6d0163606aeb1a3ea21cd522a5dbd6d53a614/django_adminx-2.0.3-py3-none-any.whl", hash = "sha256:983751e1774e598d6b5164a28d16a969ace0121959368bda0e95f512fd829567", size = 242993, upload-time = "2018-06-04T04:46:31.473Z" },
+
+[package.metadata]
+requires-dist = [
+    { name = "django", specifier = ">=5.2,<7" },
+    { name = "django-stubs-ext", specifier = ">=5.0" },
+    { name = "jinja2", marker = "extra == 'jinja2'", specifier = ">=3.1" },
+]
+provides-extras = ["jinja2"]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "beautifulsoup4", specifier = ">=4.14.3" },
+    { name = "django-stubs", specifier = "==6.0.1" },
+    { name = "jinja2", specifier = ">=3.1" },
+    { name = "mypy", specifier = "==1.19.1" },
+    { name = "pre-commit", specifier = "==4.5.1" },
+    { name = "pytest", specifier = "==9.0.2" },
+    { name = "pytest-cov", specifier = "==7.1.0" },
+    { name = "pytest-django", specifier = "==4.12.0" },
+    { name = "pytest-xdist", specifier = "==3.8.0" },
+    { name = "ruff", specifier = "==0.15.8" },
+]
+docs = [
+    { name = "mike", specifier = "==2.1.4" },
+    { name = "mkdocs", specifier = "==1.6.1" },
+    { name = "mkdocs-material", specifier = "==9.7.6" },
 ]
 
 [[package]]
@@ -444,30 +459,6 @@ docs = [
 ]
 
 [[package]]
-name = "django-crispy-forms"
-version = "2.6"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "django" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/73/42/c2cfb672493730b963ef377b103e29871c56348a215d0ae8cf362fe8ab1e/django_crispy_forms-2.6.tar.gz", hash = "sha256:4921a1087c6cd4f9fa3c139654c1de1c1c385f8bd6729aaee530bc0121ab4b93", size = 1097838, upload-time = "2026-03-01T09:03:37.138Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/96/e3/4c5915a732d6ab54da8871400852b67529518eedfb6b78ecf10bbccfcabb/django_crispy_forms-2.6-py3-none-any.whl", hash = "sha256:8ee0ae28b6b0ac41ff48a65944480c049fe8d1b0047086874fd7efabf4ec1374", size = 31479, upload-time = "2026-03-01T09:03:36.048Z" },
-]
-
-[[package]]
-name = "django-formtools"
-version = "2.5.1"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "django" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/73/f8/bb9b228fc33230186f3612a6fc96274a81bab3509817498f2632d7aa6367/django-formtools-2.5.1.tar.gz", hash = "sha256:47cb34552c6efca088863d693284d04fc36eaaf350eb21e1a1d935e0df523c93", size = 88637, upload-time = "2023-12-19T10:30:59.78Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/12/63/91a107e3aaaf3987bad036494dfd8cc2675f4a66d22e65ffd6711f84ba70/django_formtools-2.5.1-py3-none-any.whl", hash = "sha256:bce9b64eda52cc1eef6961cc649cf75aacd1a707c2fff08d6c3efcbc8e7e761a", size = 170651, upload-time = "2023-12-19T10:30:02.816Z" },
-]
-
-[[package]]
 name = "django-formwork"
 version = "0.1.0a1"
 source = { registry = "https://pypi.org/simple" }
@@ -553,18 +544,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/45/3d/ea55015e2e2a8e2230c6a056768512a9660573f8926f87671f166d455936/django_pgtrigger-4.17.0.tar.gz", hash = "sha256:55d297a756b5b6a8e0c533d3323fda1589c699e7d14aa3fff7fa7d774c46363c", size = 32200, upload-time = "2025-12-04T15:46:06.587Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/91/47/13c0c23c134cd0f0b0addfbc3ef1477f90d891184d21689f9074b794b00c/django_pgtrigger-4.17.0-py3-none-any.whl", hash = "sha256:06048cdeb57e20987fd0bf7dd673512a1413a08868eea248d70dbb970e967175", size = 36326, upload-time = "2025-12-04T15:46:05.427Z" },
-]
-
-[[package]]
-name = "django-reversion"
-version = "6.1.0"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "django" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/9b/8b/72000ad3ba05cb72134f62ad093267e3d83d8fdf1406102d2a1a2ec7d55e/django_reversion-6.1.0.tar.gz", hash = "sha256:31dd7fee02e2a21af7c2d0a61c1c0f27ba07df2317c9a0a3f31d3ee40069025d", size = 76140, upload-time = "2025-12-12T20:23:51.948Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/5e/8e/c80904ce5cb94f78cdd7d794cb7b4a8e8891a7515621bbce5f2a45de6555/django_reversion-6.1.0-py3-none-any.whl", hash = "sha256:1f5815791d9accdb0bad9d5982668f217dc65225be57041ae9641dbdcd838ce3", size = 86196, upload-time = "2025-12-12T20:23:50.18Z" },
 ]
 
 [[package]]
@@ -709,7 +688,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "django", specifier = ">=6.0,<7" },
-    { name = "django-adminx" },
+    { name = "django-adminx", editable = "../django-adminx" },
     { name = "django-allauth" },
     { name = "django-anymail" },
     { name = "django-cachalot" },
@@ -855,15 +834,6 @@ wheels = [
 ]
 
 [[package]]
-name = "future"
-version = "1.0.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/a7/b2/4140c69c6a66432916b26158687e821ba631a4c9273c474343badf84d3ba/future-1.0.0.tar.gz", hash = "sha256:bd2968309307861edae1458a4f8a4f3598c03be43b97521076aebf5d94c07b05", size = 1228490, upload-time = "2024-02-21T11:52:38.461Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/da/71/ae30dadffc90b9006d77af76b393cb9dfbfc9629f339fc1574a1c52e6806/future-1.0.0-py3-none-any.whl", hash = "sha256:929292d34f5872e70396626ef385ec22355a1fae8ad29e1a734c3e43f9fbc216", size = 491326, upload-time = "2024-02-21T11:52:35.956Z" },
-]
-
-[[package]]
 name = "granian"
 version = "2.7.2"
 source = { registry = "https://pypi.org/simple" }
@@ -939,18 +909,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/06/94/82699a10bca87a5556c9c59b5963f2d039dbd239f25bc2a63907a05a14cb/httpcore-1.0.9.tar.gz", hash = "sha256:6e34463af53fd2ab5d807f399a9b45ea31c3dfa2276f15a2c3f00afff6e176e8", size = 85484, upload-time = "2025-04-24T22:06:22.219Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/7e/f5/f66802a942d491edb555dd61e3a9961140fd64c90bce1eafd741609d334d/httpcore-1.0.9-py3-none-any.whl", hash = "sha256:2d400746a40668fc9dec9810239072b40b4484b640a8c38fd654a024c7a1bf55", size = 78784, upload-time = "2025-04-24T22:06:20.566Z" },
-]
-
-[[package]]
-name = "httplib2"
-version = "0.31.2"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "pyparsing" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/c1/1f/e86365613582c027dda5ddb64e1010e57a3d53e99ab8a72093fa13d565ec/httplib2-0.31.2.tar.gz", hash = "sha256:385e0869d7397484f4eab426197a4c020b606edd43372492337c0b4010ae5d24", size = 250800, upload-time = "2026-01-23T11:04:44.165Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/2f/90/fd509079dfcab01102c0fdd87f3a9506894bc70afcf9e9785ef6b2b3aff6/httplib2-0.31.2-py3-none-any.whl", hash = "sha256:dbf0c2fa3862acf3c55c078ea9c0bc4481d7dc5117cae71be9514912cf9f8349", size = 91099, upload-time = "2026-01-23T11:04:42.78Z" },
 ]
 
 [[package]]
@@ -1372,15 +1330,6 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/c3/b2/bc9c9196916376152d655522fdcebac55e66de6603a76a02bca1b6414f6c/pygments-2.20.0.tar.gz", hash = "sha256:6757cd03768053ff99f3039c1a36d6c0aa0b263438fcab17520b30a303a82b5f", size = 4955991, upload-time = "2026-03-29T13:29:33.898Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/f4/7e/a72dd26f3b0f4f2bf1dd8923c85f7ceb43172af56d63c7383eb62b332364/pygments-2.20.0-py3-none-any.whl", hash = "sha256:81a9e26dd42fd28a23a2d169d86d7ac03b46e2f8b59ed4698fb4785f946d0176", size = 1231151, upload-time = "2026-03-29T13:29:30.038Z" },
-]
-
-[[package]]
-name = "pyparsing"
-version = "3.3.2"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/f3/91/9c6ee907786a473bf81c5f53cf703ba0957b23ab84c264080fb5a450416f/pyparsing-3.3.2.tar.gz", hash = "sha256:c777f4d763f140633dcb6d8a3eda953bf7a214dc4eff598413c070bcdc117cbc", size = 6851574, upload-time = "2026-01-21T03:57:59.36Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/10/bd/c038d7cc38edc1aa5bf91ab8068b63d4308c66c4c8bb3cbba7dfbc049f9c/pyparsing-3.3.2-py3-none-any.whl", hash = "sha256:850ba148bd908d7e2411587e247a1e4f0327839c40e2e5e6d05a007ecc69911d", size = 122781, upload-time = "2026-01-21T03:57:55.912Z" },
 ]
 
 [[package]]
@@ -1898,22 +1847,4 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/82/dd/e5176e4b241c9f528402cebb238a36785a628179d7d8b71091154b3e4c9e/wrapt-2.1.2-cp314-cp314t-win_amd64.whl", hash = "sha256:08ffa54146a7559f5b8df4b289b46d963a8e74ed16ba3687f99896101a3990c5", size = 63969, upload-time = "2026-03-06T02:54:39Z" },
     { url = "https://files.pythonhosted.org/packages/5c/99/79f17046cf67e4a95b9987ea129632ba8bcec0bc81f3fb3d19bdb0bd60cd/wrapt-2.1.2-cp314-cp314t-win_arm64.whl", hash = "sha256:72aaa9d0d8e4ed0e2e98019cea47a21f823c9dd4b43c7b77bba6679ffcca6a00", size = 60554, upload-time = "2026-03-06T02:53:14.132Z" },
     { url = "https://files.pythonhosted.org/packages/1a/c7/8528ac2dfa2c1e6708f647df7ae144ead13f0a31146f43c7264b4942bf12/wrapt-2.1.2-py3-none-any.whl", hash = "sha256:b8fd6fa2b2c4e7621808f8c62e8317f4aae56e59721ad933bac5239d913cf0e8", size = 43993, upload-time = "2026-03-06T02:53:12.905Z" },
-]
-
-[[package]]
-name = "xlsxwriter"
-version = "3.2.9"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/46/2c/c06ef49dc36e7954e55b802a8b231770d286a9758b3d936bd1e04ce5ba88/xlsxwriter-3.2.9.tar.gz", hash = "sha256:254b1c37a368c444eac6e2f867405cc9e461b0ed97a3233b2ac1e574efb4140c", size = 215940, upload-time = "2025-09-16T00:16:21.63Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/3a/0c/3662f4a66880196a590b202f0db82d919dd2f89e99a27fadef91c4a33d41/xlsxwriter-3.2.9-py3-none-any.whl", hash = "sha256:9a5db42bc5dff014806c58a20b9eae7322a134abb6fce3c92c181bfb275ec5b3", size = 175315, upload-time = "2025-09-16T00:16:20.108Z" },
-]
-
-[[package]]
-name = "xlwt"
-version = "1.3.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/06/97/56a6f56ce44578a69343449aa5a0d98eefe04085d69da539f3034e2cd5c1/xlwt-1.3.0.tar.gz", hash = "sha256:c59912717a9b28f1a3c2a98fd60741014b06b043936dcecbc113eaaada156c88", size = 153929, upload-time = "2017-08-22T06:47:16.498Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/44/48/def306413b25c3d01753603b1a222a011b8621aed27cd7f89cbc27e6b0f4/xlwt-1.3.0-py2.py3-none-any.whl", hash = "sha256:a082260524678ba48a297d922cc385f58278b8aa68741596a87de01a9c628b2e", size = 99981, upload-time = "2017-08-22T06:47:15.281Z" },
 ]

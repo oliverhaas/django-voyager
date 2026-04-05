@@ -16,7 +16,7 @@ dependencies = [
   # Our packages
   "django-adminx",
   "django-cachex[valkey]",
-  "django-celeryx",  # installed from local path via uv sources
+  "django-celeryx",        # installed from local path via uv sources
   "django-formwork",
   "django-nplus1",
   # "django-filthyfields",  # not yet published
@@ -40,6 +40,7 @@ dependencies = [
 ]
 
 [tool.uv.sources]
+django-adminx = { path = "../django-adminx", editable = true }
 django-celeryx = { path = "../django-celeryx", editable = true }
 
 [dependency-groups]
@@ -110,8 +111,12 @@ suppress-none-returning = true
   "S311",   # random is fine for tests
 ]
 "config/settings/**" = [
-  "F403",   # Wildcard imports for settings splitting
-  "F405",   # Undefined names from wildcard imports
+  "F403", # Wildcard imports for settings splitting
+  "F405", # Undefined names from wildcard imports
+  "S105", # Hardcoded dev-only secret key
+]
+"manage.py" = [
+  "PLC0415", # Import inside function is Django's manage.py pattern
 ]
 
 # --- MyPy ---

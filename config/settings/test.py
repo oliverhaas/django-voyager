@@ -1,4 +1,4 @@
-from .base import *  # noqa: F403
+from .base import *
 
 # Faster password hashing for tests
 PASSWORD_HASHERS = [
