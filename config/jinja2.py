@@ -6,7 +6,7 @@ from jinja2 import Environment
 
 
 def environment(**options: Any) -> Environment:
-    env = Environment(autoescape=True, **options)
+    env = Environment(**options)  # noqa: S701 - autoescape is set by Django's Jinja2 backend
     env.globals.update(
         {
             "static": static,

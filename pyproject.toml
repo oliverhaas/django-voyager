@@ -153,6 +153,24 @@ include = ["tests/**"]
 unresolved-attribute = "ignore"
 invalid-argument-type = "ignore"
 
+[[tool.ty.overrides]]
+include = ["config/jinja2.py"]
+
+[tool.ty.overrides.rules]
+# Jinja2 env.globals has overly complex type stubs
+no-matching-overload = "ignore"
+
+[[tool.ty.overrides]]
+include = [
+  "config/settings/local.py",
+  "config/settings/test.py",
+  "config/settings/production.py",
+]
+
+[tool.ty.overrides.rules]
+# Settings overrides intentionally reassign base settings with different values
+invalid-assignment = "ignore"
+
 # --- Pytest ---
 
 [tool.pytest.ini_options]
