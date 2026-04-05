@@ -1,0 +1,45 @@
+# Python
+*.py[cod]
+__pycache__/
+*.egg-info/
+
+# Virtual environment
+.venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+\#*
+.\#*
+*~
+
+# OS
+.DS_Store
+
+# Django
+*.sqlite3
+local_settings.py
+media/
+
+# Testing
+.coverage
+coverage.xml
+htmlcov/
+
+# Build
+/build/
+/dist/
+
+# uv
+# uv.lock is committed for reproducibility
+
+# Node (for frontend tooling)
+node_modules/
+
+# Docker
+dump.rdb
+
+# Misc
+*.log
+CLAUDE.md

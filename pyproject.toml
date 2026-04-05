@@ -1,0 +1,173 @@
+[project]
+name = "django-voyager"
+version = "0.1.0"
+description = "Reference Django project integrating the full oliverhaas package stack"
+license = { text = "MIT" }
+requires-python = ">=3.14"
+authors = [{ name = "Oliver Haas", email = "ohaas@e1plus.de" }]
+dependencies = [
+  # Core
+  "Django>=6.0,<7",
+  "granian>=2",
+  "httpx>=0.28",
+  "pillow>=11",
+  "psycopg[c]>=3.2",
+  "tenacity>=9",
+  # Our packages
+  "django-adminx",
+  "django-cachex[valkey]",
+  "django-celeryx",  # installed from local path via uv sources
+  "django-formwork",
+  "django-nplus1",
+  # "django-filthyfields",  # not yet published
+  # "celery-asyncio",       # not yet published
+  # Third-party Django
+  "django-allauth",
+  "django-anymail",
+  "django-cachalot",
+  "django-celery-beat",
+  "django-import-export",
+  "django-ninja",
+  "django-pg-zero-downtime-migrations",
+  "django-pghistory",
+  "django-pgtrigger",
+  "django-syzygy",
+  "django-tree-queries",
+  "django-unfold",
+  "django-vite",
+  "django-waffle",
+  "jinjax",
+]
+
+[tool.uv.sources]
+django-celeryx = { path = "../django-celeryx", editable = true }
+
+[dependency-groups]
+dev = [
+  "beautifulsoup4==4.14.3",
+  "debugpy==1.8.14",
+  "django-stubs==6.0.1",
+  "djlint==1.36.4",
+  "factory-boy==3.3.3",
+  "mypy==1.19.1",
+  "pre-commit==4.5.1",
+  "pytest==9.0.2",
+  "pytest-asyncio==1.3.0",
+  "pytest-cov==7.1.0",
+  "pytest-django==4.12.0",
+  "pytest-flakefinder==1.1.0",
+  "pytest-playwright==0.7.2",
+  "pytest-xdist==3.8.0",
+  "ruff==0.15.7",
+  "testcontainers==4.14.2",
+  "ty==0.0.24",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["config"]
+
+# --- Ruff ---
+
+[tool.ruff]
+target-version = "py314"
+line-length = 120
+fix = true
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+  "COM812", # Conflicts with ruff-format
+  "D",      # Docstrings - will add incrementally
+  "E501",   # Line length handled by config
+  "EM",     # Exception strings inline are fine
+  "TRY003", # Long exception messages are helpful for debugging
+  "SIM108", # Ternary not always clearer
+]
+
+[tool.ruff.lint.flake8-annotations]
+allow-star-arg-any = true
+suppress-none-returning = true
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = [
+  "ANN",    # Type annotations not required in tests
+  "ARG",    # Unused arguments common in fixtures
+  "DTZ005", # Timezone-naive datetime okay in tests
+  "F841",   # Unused variables okay in tests
+  "FBT",    # Boolean args fine in test fixtures
+  "PT006",  # Parametrize tuple style is preference
+  "PT011",  # Broad pytest.raises okay in some tests
+  "PT013",  # pytest import style is preference
+  "PT018",  # Compound assertions okay in tests
+  "RUF002", # Unicode in docstrings is fine
+  "RUF015", # next(iter()) vs slice is preference
+  "S101",   # assert in tests
+  "S105",   # Hardcoded passwords in test settings
+  "S311",   # random is fine for tests
+]
+"config/settings/**" = [
+  "F403",   # Wildcard imports for settings splitting
+  "F405",   # Undefined names from wildcard imports
+]
+
+# --- MyPy ---
+
+[tool.mypy]
+python_version = "3.12"
+plugins = ["mypy_django_plugin.main"]
+pretty = true
+show_error_codes = true
+show_error_context = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_unreachable = false
+
+[tool.django-stubs]
+django_settings_module = "config.settings.base"
+
+[[tool.mypy.overrides]]
+module = "testcontainers.*"
+ignore_missing_imports = true
+
+# --- ty ---
+
+[tool.ty.environment]
+python-version = "3.14"
+
+[tool.ty.analysis]
+respect-type-ignore-comments = false
+
+[[tool.ty.overrides]]
+include = ["tests/**"]
+
+[tool.ty.overrides.rules]
+unresolved-attribute = "ignore"
+invalid-argument-type = "ignore"
+
+# --- Pytest ---
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings.test"
+addopts = "--cov=config --cov-report=term-missing --no-cov-on-fail"
+pythonpath = ["."]
+testpaths = ["tests"]
+xfail_strict = true
+asyncio_mode = "auto"
+
+[tool.coverage.run]
+omit = ["tests/*", "config/settings/production.py"]
+
+[tool.coverage.report]
+precision = 2
+skip_covered = true
+
+# --- djlint ---
+
+[tool.djlint]
+profile = "jinja"
+indent = 2
+max_line_length = 120
