@@ -108,6 +108,7 @@ suppress-none-returning = true
   "S105",    # Hardcoded passwords in test settings
   "S311",    # random is fine for tests
   "SLF001",  # Private member access for testing internal state
+  "PLR2004", # HTTP status codes are not magic values
 ]
 "config/settings/**" = [
   "F403", # Wildcard imports for settings splitting
@@ -119,6 +120,10 @@ suppress-none-returning = true
 ]
 "**/migrations/**" = [
   "RUF012", # Mutable class attributes are Django migration pattern
+]
+"**/admin.py" = [
+  "ARG002", # Unused args in permission overrides (Django signature)
+  "RUF012", # Mutable class attributes are Django admin pattern
 ]
 
 # --- MyPy ---
