@@ -23,7 +23,7 @@ Building packages in isolation makes it easy to miss friction between them. A re
 
 ### Our packages
 
-- [django-adminx](https://github.com/oliverhaas/django-adminx) — admin performance extensions + Jinja2 admin
+- [django-admin-boost](https://github.com/oliverhaas/django-admin-boost) — admin performance extensions + Jinja2 admin
 - [django-cachex](https://github.com/oliverhaas/django-cachex) — Valkey/Redis cache backend
 - [django-celeryx](https://github.com/oliverhaas/django-celeryx) — Celery monitoring in Django admin (replaces Flower)
 - [django-formwork](https://github.com/oliverhaas/django-formwork) — modern forms + HTMX
@@ -34,7 +34,7 @@ Building packages in isolation makes it easy to miss friction between them. A re
 ### Architecture & approach
 
 - **Fully async** — async views, async middlewares (custom where needed), async ORM
-- **Jinja2 everywhere** — Jinja2 as the primary template backend, push as far as possible (admin included via django-adminx)
+- **Jinja2 everywhere** — Jinja2 as the primary template backend, push as far as possible (admin included via django-admin-boost)
 - **PostgreSQL 100%** — including tests and local dev (no sqlite, ever)
 - **Valkey** as default cache (via django-cachex)
 - **Granian** as ASGI server
@@ -46,7 +46,7 @@ Building packages in isolation makes it easy to miss friction between them. A re
 - django-cachalot — queryset caching
 - django-import-export — data import/export in admin
 - django-ninja — API layer
-- django-unfold — admin theme (needs investigation: Jinja2 compatibility with django-adminx)
+- django-unfold — admin theme (needs investigation: Jinja2 compatibility with django-admin-boost)
 - django-celery-beat — periodic task scheduling
 - django-jinjax — Jinja2 components (probably)
 - django-allauth — authentication
@@ -92,7 +92,7 @@ Building packages in isolation makes it easy to miss friction between them. A re
 
 ## Open questions
 
-- **django-unfold + Jinja2** — does unfold work with Jinja2 templates? May need django-adminx to handle the conversion, or unfold may need to be dropped/replaced
+- **django-unfold + Jinja2** — does unfold work with Jinja2 templates? May need django-admin-boost to handle the conversion, or unfold may need to be dropped/replaced
 - **django-jinjax vs django-components-lite** — both do components, jinjax is Jinja2-native. Pick one.
 - **Static files** — can granian serve static files directly in production, or do we need whitenoise?
 - **syzygy + pg-zero-downtime-migrations** — need to verify compatibility and write patches if needed

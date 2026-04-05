@@ -12,8 +12,8 @@ ALLOWED_HOSTS: list[str] = []
 # --- Apps ---
 
 INSTALLED_APPS = [
-    # Django admin (via django-adminx)
-    "django_adminx.admin",
+    # Django admin (via django-admin-boost)
+    "django_admin_boost.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",

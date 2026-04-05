@@ -87,6 +87,25 @@ wheels = [
 ]
 
 [[package]]
+name = "celery-asyncio"
+version = "6.0.0a2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "asgiref" },
+    { name = "click" },
+    { name = "click-didyoumean" },
+    { name = "click-plugins" },
+    { name = "click-repl" },
+    { name = "kombu-asyncio" },
+    { name = "python-dateutil" },
+    { name = "tzlocal" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/bc/b6/d15e3ac5e64528d0c6c90aa4ddab89dba7812fe3d00158b9f78428361b3c/celery_asyncio-6.0.0a2.tar.gz", hash = "sha256:4f6a2be7083a4acd57aa77b05ca8ddada0d05b2471f6bb7e16c3472204f71d95", size = 305548, upload-time = "2026-03-14T12:22:37.068Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/39/6a/2db22d55ddc0a3c66f9a65ad027cf4a71b343ea91d66ec9d52490937d9d3/celery_asyncio-6.0.0a2-py3-none-any.whl", hash = "sha256:e251c02bfe3b6065b606d7eabc2943c2a369b35b64f589e428f34681453b338b", size = 352527, upload-time = "2026-03-14T12:22:35.222Z" },
+]
+
+[[package]]
 name = "certifi"
 version = "2026.2.25"
 source = { registry = "https://pypi.org/simple" }
@@ -307,39 +326,16 @@ wheels = [
 ]
 
 [[package]]
-name = "django-adminx"
+name = "django-admin-boost"
 version = "0.1.0a1"
-source = { editable = "../django-adminx" }
+source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django" },
     { name = "django-stubs-ext" },
 ]
-
-[package.metadata]
-requires-dist = [
-    { name = "django", specifier = ">=5.2,<7" },
-    { name = "django-stubs-ext", specifier = ">=5.0" },
-    { name = "jinja2", marker = "extra == 'jinja2'", specifier = ">=3.1" },
-]
-provides-extras = ["jinja2"]
-
-[package.metadata.requires-dev]
-dev = [
-    { name = "beautifulsoup4", specifier = ">=4.14.3" },
-    { name = "django-stubs", specifier = "==6.0.1" },
-    { name = "jinja2", specifier = ">=3.1" },
-    { name = "mypy", specifier = "==1.19.1" },
-    { name = "pre-commit", specifier = "==4.5.1" },
-    { name = "pytest", specifier = "==9.0.2" },
-    { name = "pytest-cov", specifier = "==7.1.0" },
-    { name = "pytest-django", specifier = "==4.12.0" },
-    { name = "pytest-xdist", specifier = "==3.8.0" },
-    { name = "ruff", specifier = "==0.15.8" },
-]
-docs = [
-    { name = "mike", specifier = "==2.1.4" },
-    { name = "mkdocs", specifier = "==1.6.1" },
-    { name = "mkdocs-material", specifier = "==9.7.6" },
+sdist = { url = "https://files.pythonhosted.org/packages/d6/1b/08aa7d3cbf4770d9498b88a8c866e7ed718ed6ec318cdead62a4bec90a43/django_admin_boost-0.1.0a1.tar.gz", hash = "sha256:1892b9620410f2ee3737516f1d962e22c12259b66d60bfb2c0e1754242941472", size = 475717, upload-time = "2026-04-05T13:06:12.873Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/46/79/15c46eeb103a17a0e8ca4f660660e63fb1ef56f2b6e7df8521fd8c135736/django_admin_boost-0.1.0a1-py3-none-any.whl", hash = "sha256:80722cf35e9e527e0b55a21b71664f8bfa85bd1f54c4a7968b4c8df4cd872446", size = 593004, upload-time = "2026-04-05T13:06:11.375Z" },
 ]
 
 [[package]]
@@ -419,43 +415,25 @@ wheels = [
 [[package]]
 name = "django-celeryx"
 version = "0.1.0a1"
-source = { editable = "../django-celeryx" }
+source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django" },
 ]
-
-[package.metadata]
-requires-dist = [
-    { name = "celery", marker = "extra == 'celery'", specifier = ">=5.4,<6" },
-    { name = "celery-asyncio", marker = "extra == 'celery-asyncio'", specifier = ">=6.0.0a1" },
-    { name = "django", specifier = ">=5.2,<7" },
-    { name = "django-unfold", marker = "extra == 'unfold'", specifier = ">=0.70.0" },
-    { name = "prometheus-client", marker = "extra == 'prometheus'", specifier = ">=0.20.0" },
+sdist = { url = "https://files.pythonhosted.org/packages/e2/a6/e40e81afbf8280778187ae35e48dda00662d5f1fff626f9ececc6655885e/django_celeryx-0.1.0a1.tar.gz", hash = "sha256:2be79622797031635283da39cabc760eabf79294f8fab939d406e7f0b4f60cce", size = 40369, upload-time = "2026-04-05T13:35:55.072Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/35/a3/bc43c0da7be27f87977086679b043568f9a4f471e37eb03893a88def7cbe/django_celeryx-0.1.0a1-py3-none-any.whl", hash = "sha256:03f256e350a6fe84496930b5add2f1e1b5b265536e3eb2d6b63bc78e2eecd851", size = 55746, upload-time = "2026-04-05T13:35:53.764Z" },
 ]
-provides-extras = ["celery", "celery-asyncio", "unfold", "prometheus"]
 
-[package.metadata.requires-dev]
-dev = [
-    { name = "beautifulsoup4", specifier = "==4.14.3" },
-    { name = "celery", specifier = "==5.6.2" },
-    { name = "django-stubs", specifier = "==5.2.9" },
-    { name = "mypy", specifier = "==1.19.1" },
-    { name = "pre-commit", specifier = "==4.5.1" },
-    { name = "pytest", specifier = "==9.0.2" },
-    { name = "pytest-cov", specifier = "==7.0.0" },
-    { name = "pytest-django", specifier = "==4.12.0" },
-    { name = "pytest-mock", specifier = "==3.15.1" },
-    { name = "pytest-xdist", specifier = "==3.8.0" },
-    { name = "redis", specifier = "==7.3.0" },
-    { name = "ruff", specifier = "==0.15.5" },
-    { name = "testcontainers", specifier = "==4.14.1" },
-    { name = "ty", specifier = "==0.0.21" },
-    { name = "types-docker", specifier = "==7.1.0.20260109" },
+[[package]]
+name = "django-filthyfields"
+version = "1.9.8b3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "django" },
 ]
-docs = [
-    { name = "mike", specifier = "==2.1.3" },
-    { name = "mkdocs", specifier = "==1.6.1" },
-    { name = "mkdocs-material", specifier = "==9.7.3" },
+sdist = { url = "https://files.pythonhosted.org/packages/88/0a/b8279452a0b7c1d6f2e11bfb671f59991199d00c320c56bd03baa2962ead/django_filthyfields-1.9.8b3.tar.gz", hash = "sha256:e39582c8cb0b20b81f198e4e64c0aae503b5f21cddcc8823147e17fd78950af1", size = 9646, upload-time = "2026-01-22T09:22:16.978Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/74/1d/7384cac7af87d6f176a9309fc172ba1191bdfdc5177f14f02083fe62d504/django_filthyfields-1.9.8b3-py3-none-any.whl", hash = "sha256:6f4fb6c0dfcac10497776da2a5850f1fbf3653dded0ec8b667bff34140e80da0", size = 9240, upload-time = "2026-01-22T09:22:16.021Z" },
 ]
 
 [[package]]
@@ -636,14 +614,16 @@ name = "django-voyager"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
+    { name = "celery-asyncio" },
     { name = "django" },
-    { name = "django-adminx" },
+    { name = "django-admin-boost" },
     { name = "django-allauth" },
     { name = "django-anymail" },
     { name = "django-cachalot" },
     { name = "django-cachex", extra = ["valkey"] },
     { name = "django-celery-beat" },
     { name = "django-celeryx" },
+    { name = "django-filthyfields" },
     { name = "django-formwork" },
     { name = "django-import-export" },
     { name = "django-ninja" },
@@ -687,32 +667,34 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "django", specifier = ">=6.0,<7" },
-    { name = "django-adminx", editable = "../django-adminx" },
-    { name = "django-allauth" },
-    { name = "django-anymail" },
-    { name = "django-cachalot" },
-    { name = "django-cachex", extras = ["valkey"] },
-    { name = "django-celery-beat" },
-    { name = "django-celeryx", editable = "../django-celeryx" },
-    { name = "django-formwork" },
-    { name = "django-import-export" },
-    { name = "django-ninja" },
-    { name = "django-nplus1" },
-    { name = "django-pg-zero-downtime-migrations" },
-    { name = "django-pghistory" },
-    { name = "django-pgtrigger" },
-    { name = "django-syzygy" },
-    { name = "django-tree-queries" },
-    { name = "django-unfold" },
-    { name = "django-vite" },
-    { name = "django-waffle" },
-    { name = "granian", specifier = ">=2" },
-    { name = "httpx", specifier = ">=0.28" },
-    { name = "jinjax" },
-    { name = "pillow", specifier = ">=11" },
-    { name = "psycopg", extras = ["c"], specifier = ">=3.2" },
-    { name = "tenacity", specifier = ">=9" },
+    { name = "celery-asyncio", specifier = "==6.0.0a2" },
+    { name = "django", specifier = "==6.0.3" },
+    { name = "django-admin-boost", specifier = "==0.1.0a1" },
+    { name = "django-allauth", specifier = "==65.15.1" },
+    { name = "django-anymail", specifier = "==14.0" },
+    { name = "django-cachalot", specifier = "==2.9.0" },
+    { name = "django-cachex", extras = ["valkey"], specifier = "==0.3.0" },
+    { name = "django-celery-beat", specifier = "==2.9.0" },
+    { name = "django-celeryx", specifier = "==0.1.0a1" },
+    { name = "django-filthyfields", specifier = "==1.9.8b3" },
+    { name = "django-formwork", specifier = "==0.1.0a1" },
+    { name = "django-import-export", specifier = "==4.4.0" },
+    { name = "django-ninja", specifier = "==1.6.2" },
+    { name = "django-nplus1", specifier = "==0.1.0a1" },
+    { name = "django-pg-zero-downtime-migrations", specifier = "==0.19" },
+    { name = "django-pghistory", specifier = "==3.9.2" },
+    { name = "django-pgtrigger", specifier = "==4.17.0" },
+    { name = "django-syzygy", specifier = "==1.2.3" },
+    { name = "django-tree-queries", specifier = "==0.24.0" },
+    { name = "django-unfold", specifier = "==0.87.0" },
+    { name = "django-vite", specifier = "==3.1.0" },
+    { name = "django-waffle", specifier = "==5.0.0" },
+    { name = "granian", specifier = "==2.7.2" },
+    { name = "httpx", specifier = "==0.28.1" },
+    { name = "jinjax", specifier = "==0.63" },
+    { name = "pillow", specifier = "==12.2.0" },
+    { name = "psycopg", extras = ["c"], specifier = "==3.3.3" },
+    { name = "tenacity", specifier = "==9.1.4" },
 ]
 
 [package.metadata.requires-dev]
@@ -1013,6 +995,15 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/b6/a5/607e533ed6c83ae1a696969b8e1c137dfebd5759a2e9682e26ff1b97740b/kombu-5.6.2.tar.gz", hash = "sha256:8060497058066c6f5aed7c26d7cd0d3b574990b09de842a8c5aaed0b92cc5a55", size = 472594, upload-time = "2025-12-29T20:30:07.779Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/fb/0f/834427d8c03ff1d7e867d3db3d176470c64871753252b21b4f4897d1fa45/kombu-5.6.2-py3-none-any.whl", hash = "sha256:efcfc559da324d41d61ca311b0c64965ea35b4c55cc04ee36e55386145dace93", size = 214219, upload-time = "2025-12-29T20:30:05.74Z" },
+]
+
+[[package]]
+name = "kombu-asyncio"
+version = "6.0.0a2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/8a/81/1978b6712494215b0ae62c7b046473d969d6a4a32450e6ec73cc10ad8992/kombu_asyncio-6.0.0a2.tar.gz", hash = "sha256:8bff8209c53bb33103a145c0cddbfb46dcf0ffe8444bcf13315d392d3e5cef53", size = 133679, upload-time = "2026-03-14T12:34:32.526Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/8f/37/21eac1d5fc8ce5c7784e572fd22898af1772e4716d40dcd70a6186f6b47f/kombu_asyncio-6.0.0a2-py3-none-any.whl", hash = "sha256:52df96ffece48e9d49e613dc2dd4ebb2a45b479fbfe485ae80ce6675c3b26423", size = 113712, upload-time = "2026-03-14T12:34:31.269Z" },
 ]
 
 [[package]]

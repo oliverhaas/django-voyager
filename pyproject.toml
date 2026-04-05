@@ -7,41 +7,38 @@ requires-python = ">=3.14"
 authors = [{ name = "Oliver Haas", email = "ohaas@e1plus.de" }]
 dependencies = [
   # Core
-  "Django>=6.0,<7",
-  "granian>=2",
-  "httpx>=0.28",
-  "pillow>=11",
-  "psycopg[c]>=3.2",
-  "tenacity>=9",
+  "Django==6.0.3",
+  "granian==2.7.2",
+  "httpx==0.28.1",
+  "pillow==12.2.0",
+  "psycopg[c]==3.3.3",
+  "tenacity==9.1.4",
   # Our packages
-  "django-adminx",
-  "django-cachex[valkey]",
-  "django-celeryx",        # installed from local path via uv sources
-  "django-formwork",
-  "django-nplus1",
-  # "django-filthyfields",  # not yet published
-  # "celery-asyncio",       # not yet published
+  "celery-asyncio==6.0.0a2",
+  "django-admin-boost==0.1.0a1",
+  "django-cachex[valkey]==0.3.0",
+  "django-celeryx==0.1.0a1",
+  "django-filthyfields==1.9.8b3",
+  "django-formwork==0.1.0a1",
+  "django-nplus1==0.1.0a1",
   # Third-party Django
-  "django-allauth",
-  "django-anymail",
-  "django-cachalot",
-  "django-celery-beat",
-  "django-import-export",
-  "django-ninja",
-  "django-pg-zero-downtime-migrations",
-  "django-pghistory",
-  "django-pgtrigger",
-  "django-syzygy",
-  "django-tree-queries",
-  "django-unfold",
-  "django-vite",
-  "django-waffle",
-  "jinjax",
+  "django-allauth==65.15.1",
+  "django-anymail==14.0",
+  "django-cachalot==2.9.0",
+  "django-celery-beat==2.9.0",
+  "django-import-export==4.4.0",
+  "django-ninja==1.6.2",
+  "django-pg-zero-downtime-migrations==0.19",
+  "django-pghistory==3.9.2",
+  "django-pgtrigger==4.17.0",
+  "django-syzygy==1.2.3",
+  "django-tree-queries==0.24.0",
+  "django-unfold==0.87.0",
+  "django-vite==3.1.0",
+  "django-waffle==5.0.0",
+  "jinjax==0.63",
 ]
 
-[tool.uv.sources]
-django-adminx = { path = "../django-adminx", editable = true }
-django-celeryx = { path = "../django-celeryx", editable = true }
 
 [dependency-groups]
 dev = [
@@ -164,7 +161,7 @@ no-matching-overload = "ignore"
 include = [
   "config/settings/local.py",
   "config/settings/test.py",
-  "config/settings/production.py",
+  "config/settings/deployed.py",
 ]
 
 [tool.ty.overrides.rules]
@@ -182,7 +179,7 @@ xfail_strict = true
 asyncio_mode = "auto"
 
 [tool.coverage.run]
-omit = ["tests/*", "config/settings/production.py"]
+omit = ["tests/*", "config/settings/deployed.py"]
 
 [tool.coverage.report]
 precision = 2
