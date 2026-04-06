@@ -11,10 +11,12 @@ if TYPE_CHECKING:
 from lab.models import (
     Accelerator,
     Collision,
+    Conference,
     Element,
     EventImage,
     Experiment,
     ExperimentCategory,
+    Organization,
 )
 
 
@@ -72,3 +74,19 @@ class CollisionAdmin(admin.ModelAdmin):
 
     def has_change_permission(self, request: HttpRequest, obj: Collision | None = None) -> bool:
         return False
+
+
+@admin.register(Organization)
+class OrganizationAdmin(admin.ModelAdmin):
+    list_display = ["name", "abbreviation", "org_type", "location", "created_at"]
+    list_filter = ["org_type"]
+    search_fields = ["name", "abbreviation", "location"]
+    filter_horizontal = ["members"]
+
+
+@admin.register(Conference)
+class ConferenceAdmin(admin.ModelAdmin):
+    list_display = ["name", "abbreviation", "location", "start_date", "end_date", "organizer"]
+    list_filter = ["organizer"]
+    search_fields = ["name", "abbreviation", "location"]
+    filter_horizontal = ["experiments"]

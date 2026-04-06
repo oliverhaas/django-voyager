@@ -5,9 +5,12 @@ from lab.models import ExperimentStatus
 from .factories import (
     AcceleratorFactory,
     CollisionFactory,
+    ConferenceFactory,
     ElementFactory,
     ExperimentCategoryFactory,
     ExperimentFactory,
+    OrganizationFactory,
+    UserFactory,
 )
 
 
@@ -103,3 +106,69 @@ class TestCollision:
 
         events = list(Collision.objects.filter(experiment=exp))
         assert events[0] == e2  # newest first
+
+
+@pytest.mark.django_db
+class TestOrganization:
+    def test_str_with_abbreviation(self):
+        org = OrganizationFactory(name="European Organization for Nuclear Research", abbreviation="CERN")
+        assert str(org) == "CERN"
+
+    def test_str_without_abbreviation(self):
+        org = OrganizationFactory(name="Some Long Institute Name", abbreviation="")
+        assert str(org) == "Some Long Institute Name"
+
+    def test_member_relationship(self):
+        org = OrganizationFactory()
+        user1 = UserFactory()
+        user2 = UserFactory()
+        org.members.add(user1, user2)
+        assert user1 in org.members.all()
+        assert user2 in org.members.all()
+        assert org.members.count() == 2
+
+    def test_reverse_member_relationship(self):
+        org = OrganizationFactory()
+        user = UserFactory()
+        org.members.add(user)
+        assert org in user.organizations.all()
+
+
+@pytest.mark.django_db
+class TestConference:
+    def test_str_with_abbreviation(self):
+        conf = ConferenceFactory(name="International Conference on High Energy Physics", abbreviation="ICHEP 2026")
+        assert str(conf) == "ICHEP 2026"
+
+    def test_str_without_abbreviation(self):
+        conf = ConferenceFactory(name="Some Conference", abbreviation="")
+        assert str(conf) == "Some Conference"
+
+    def test_experiment_relationship(self):
+        conf = ConferenceFactory()
+        exp1 = ExperimentFactory()
+        exp2 = ExperimentFactory()
+        conf.experiments.add(exp1, exp2)
+        assert exp1 in conf.experiments.all()
+        assert exp2 in conf.experiments.all()
+        assert conf.experiments.count() == 2
+
+    def test_reverse_experiment_relationship(self):
+        conf = ConferenceFactory()
+        exp = ExperimentFactory()
+        conf.experiments.add(exp)
+        assert conf in exp.conferences.all()
+
+    def test_ordering(self):
+        from django.utils import timezone
+
+        today = timezone.now().date()
+        import datetime
+
+        conf_old = ConferenceFactory(start_date=today - datetime.timedelta(days=365))
+        conf_new = ConferenceFactory(start_date=today)
+
+        from lab.models import Conference
+
+        conferences = list(Conference.objects.all())
+        assert conferences[0] == conf_new  # newest first

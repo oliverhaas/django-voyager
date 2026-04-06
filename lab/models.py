@@ -8,6 +8,8 @@ from django.conf import settings
 from django.db import models
 from tree_queries.models import TreeNode
 
+User = settings.AUTH_USER_MODEL
+
 
 class Element(models.Model):
     atomic_number = models.PositiveSmallIntegerField(primary_key=True)
@@ -118,3 +120,45 @@ class EventImage(models.Model):
 
     def __str__(self) -> str:
         return f"Image {self.pk} for Collision {self.collision_id}"
+
+
+class OrgType(models.TextChoices):
+    LABORATORY = "laboratory", "Laboratory"
+    UNIVERSITY = "university", "University"
+    INSTITUTE = "institute", "Institute"
+    CONSORTIUM = "consortium", "Consortium"
+    OTHER = "other", "Other"
+
+
+class Organization(models.Model):
+    name = models.CharField(max_length=200, unique=True)
+    abbreviation = models.CharField(max_length=20, unique=True, blank=True)
+    location = models.CharField(max_length=200)
+    website = models.URLField(blank=True)
+    org_type = models.CharField(max_length=20, choices=OrgType.choices)
+    members = models.ManyToManyField(User, related_name="organizations", blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return self.abbreviation or self.name
+
+
+class Conference(models.Model):
+    name = models.CharField(max_length=200)
+    abbreviation = models.CharField(max_length=20, blank=True)
+    location = models.CharField(max_length=200)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    website = models.URLField(blank=True)
+    description = models.TextField(blank=True)
+    organizer = models.ForeignKey(
+        Organization, on_delete=models.SET_NULL, null=True, blank=True, related_name="conferences"
+    )
+    experiments = models.ManyToManyField(Experiment, related_name="conferences", blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering: ClassVar = ["-start_date"]
+
+    def __str__(self) -> str:
+        return self.abbreviation or self.name

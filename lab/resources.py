@@ -5,10 +5,12 @@ from import_export.resources import ModelResource
 from lab.models import (
     Accelerator,
     Collision,
+    Conference,
     Element,
     EventImage,
     Experiment,
     ExperimentCategory,
+    Organization,
 )
 
 
@@ -40,3 +42,13 @@ class CollisionResource(ModelResource):
 class EventImageResource(ModelResource):
     class Meta:
         model = EventImage
+
+
+class OrganizationResource(ModelResource):
+    class Meta:
+        model = Organization
+
+
+class ConferenceResource(ModelResource):
+    class Meta:
+        model = Conference

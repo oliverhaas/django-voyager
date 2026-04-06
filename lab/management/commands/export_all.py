@@ -10,10 +10,12 @@ from django.core.management.base import BaseCommand, CommandParser
 from lab.resources import (
     AcceleratorResource,
     CollisionResource,
+    ConferenceResource,
     ElementResource,
     EventImageResource,
     ExperimentCategoryResource,
     ExperimentResource,
+    OrganizationResource,
 )
 
 # Export order: parents before children
@@ -24,6 +26,8 @@ RESOURCES = [
     ("experiment", ExperimentResource),
     ("collision", CollisionResource),
     ("event_image", EventImageResource),
+    ("organization", OrganizationResource),
+    ("conference", ConferenceResource),
 ]
 
 DEFAULT_DIR = Path("fixtures")

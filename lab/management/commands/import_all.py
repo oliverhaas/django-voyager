@@ -11,10 +11,12 @@ from tablib import Dataset
 from lab.resources import (
     AcceleratorResource,
     CollisionResource,
+    ConferenceResource,
     ElementResource,
     EventImageResource,
     ExperimentCategoryResource,
     ExperimentResource,
+    OrganizationResource,
 )
 
 # Import order: parents before children
@@ -25,6 +27,8 @@ RESOURCES = [
     ("experiment", ExperimentResource),
     ("collision", CollisionResource),
     ("event_image", EventImageResource),
+    ("organization", OrganizationResource),
+    ("conference", ConferenceResource),
 ]
 
 DEFAULT_DIR = Path("fixtures")

@@ -14,10 +14,13 @@ from django.utils import timezone
 from lab.models import (
     Accelerator,
     Collision,
+    Conference,
     Element,
     Experiment,
     ExperimentCategory,
     ExperimentStatus,
+    Organization,
+    OrgType,
 )
 from lab.services import refresh_experiment_stats
 
@@ -206,6 +209,8 @@ class Command(BaseCommand):
         self._seed_accelerators()
         self._seed_categories()
         self._seed_experiments()
+        self._seed_organizations()
+        self._seed_conferences()
         self._seed_superuser()
 
     def _seed_accelerators(self) -> None:
@@ -421,6 +426,108 @@ class Command(BaseCommand):
         # Update denormalized stats
         for experiment in experiments:
             refresh_experiment_stats(experiment.pk)
+
+    def _seed_organizations(self) -> None:
+        organizations_data = [
+            {
+                "name": "European Organization for Nuclear Research",
+                "abbreviation": "CERN",
+                "location": "Geneva, Switzerland",
+                "website": "https://home.cern",
+                "org_type": OrgType.LABORATORY,
+            },
+            {
+                "name": "Fermi National Accelerator Laboratory",
+                "abbreviation": "Fermilab",
+                "location": "Batavia, Illinois, USA",
+                "website": "https://www.fnal.gov",
+                "org_type": OrgType.LABORATORY,
+            },
+            {
+                "name": "High Energy Accelerator Research Organization",
+                "abbreviation": "KEK",
+                "location": "Tsukuba, Japan",
+                "website": "https://www.kek.jp",
+                "org_type": OrgType.LABORATORY,
+            },
+            {
+                "name": "Massachusetts Institute of Technology",
+                "abbreviation": "MIT",
+                "location": "Cambridge, Massachusetts, USA",
+                "website": "https://www.mit.edu",
+                "org_type": OrgType.UNIVERSITY,
+            },
+        ]
+        count = 0
+        for data in organizations_data:
+            _, created = Organization.objects.update_or_create(
+                name=data["name"],
+                defaults={k: v for k, v in data.items() if k != "name"},
+            )
+            if created:
+                count += 1
+        self.stdout.write(self.style.SUCCESS(f"Seeded {len(organizations_data)} organizations ({count} created)."))
+
+    def _seed_conferences(self) -> None:
+        try:
+            cern = Organization.objects.get(abbreviation="CERN")
+            fermilab = Organization.objects.get(abbreviation="Fermilab")
+        except Organization.DoesNotExist:
+            cern = None
+            fermilab = None
+
+        atlas = Experiment.objects.filter(name="ATLAS").first()
+        cms = Experiment.objects.filter(name="CMS").first()
+        alice = Experiment.objects.filter(name="ALICE").first()
+        d0 = Experiment.objects.filter(name="D0").first()
+
+        conferences_data = [
+            {
+                "name": "International Conference on High Energy Physics 2026",
+                "abbreviation": "ICHEP 2026",
+                "location": "Prague, Czech Republic",
+                "start_date": datetime.date(2026, 7, 18),
+                "end_date": datetime.date(2026, 7, 25),
+                "website": "https://ichep2026.cz",
+                "description": "Biennial conference covering the latest results in high energy physics.",
+                "organizer": cern,
+                "experiments": [e for e in [atlas, cms, alice] if e is not None],
+            },
+            {
+                "name": "Large Hadron Collider Physics Conference 2025",
+                "abbreviation": "LHCP 2025",
+                "location": "Split, Croatia",
+                "start_date": datetime.date(2025, 6, 2),
+                "end_date": datetime.date(2025, 6, 7),
+                "website": "",
+                "description": "Annual conference on physics results from the LHC experiments.",
+                "organizer": cern,
+                "experiments": [e for e in [atlas, cms] if e is not None],
+            },
+            {
+                "name": "Moriond Electroweak 2025",
+                "abbreviation": "Moriond EW 2025",
+                "location": "La Thuile, Italy",
+                "start_date": datetime.date(2025, 3, 15),
+                "end_date": datetime.date(2025, 3, 22),
+                "website": "",
+                "description": "Rencontres de Moriond — electroweak interactions and unified theories.",
+                "organizer": fermilab,
+                "experiments": [e for e in [d0, cms] if e is not None],
+            },
+        ]
+        count = 0
+        for data in conferences_data:
+            experiments = data.pop("experiments")
+            obj, created = Conference.objects.get_or_create(
+                name=data["name"],
+                defaults={k: v for k, v in data.items() if k != "name"},
+            )
+            if experiments:
+                obj.experiments.set(experiments)
+            if created:
+                count += 1
+        self.stdout.write(self.style.SUCCESS(f"Seeded {len(conferences_data)} conferences ({count} created)."))
 
     def _seed_superuser(self) -> None:
         if User.objects.filter(username="admin").exists():

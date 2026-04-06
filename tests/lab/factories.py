@@ -10,11 +10,14 @@ from PIL import Image
 from lab.models import (
     Accelerator,
     Collision,
+    Conference,
     Element,
     EventImage,
     Experiment,
     ExperimentCategory,
     ExperimentStatus,
+    Organization,
+    OrgType,
     ProcessingStatus,
 )
 
@@ -102,3 +105,28 @@ class EventImageFactory(factory.django.DjangoModelFactory):
     collision = factory.SubFactory(CollisionFactory)
     original_image = factory.LazyFunction(make_test_image)
     processing_status = ProcessingStatus.PENDING
+
+
+class OrganizationFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Organization
+
+    name = factory.Sequence(lambda n: f"Organization {n}")
+    abbreviation = factory.Sequence(lambda n: f"ORG{n}")
+    location = "Geneva, Switzerland"
+    website = ""
+    org_type = OrgType.LABORATORY
+
+
+class ConferenceFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Conference
+
+    name = factory.Sequence(lambda n: f"Conference {n}")
+    abbreviation = factory.Sequence(lambda n: f"CONF{n}")
+    location = "Geneva, Switzerland"
+    start_date = factory.LazyFunction(lambda: timezone.now().date())
+    end_date = factory.LazyFunction(lambda: timezone.now().date())
+    website = ""
+    description = ""
+    organizer = None
