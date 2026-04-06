@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Accelerators - Voyager{% endblock %}
+{% block content %}
+  <h1 class="text-3xl font-bold mb-6">Accelerators</h1>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    {% for acc in accelerators %}
+      <div class="card bg-base-100 shadow">
+        <div class="card-body">
+          <h2 class="card-title">
+            {{ acc.name }}
+            {% if acc.is_active %}
+              <span class="badge badge-success badge-sm">Active</span>
+            {% else %}
+              <span class="badge badge-ghost badge-sm">Inactive</span>
+            {% endif %}
+          </h2>
+          <p class="text-sm text-base-content/70">{{ acc.location }}</p>
+          <div class="mt-2 space-y-1 text-sm">
+            <div>
+              Max Energy: <span class="font-mono">{{ acc.max_energy_gev }} GeV</span>
+            </div>
+            <div>Commissioned: {{ acc.commissioned_date.strftime("%Y-%m-%d") }}</div>
+            <div>Experiments: {{ acc.experiment_count }}</div>
+          </div>
+        </div>
+      </div>
+    {% else %}
+      <div class="col-span-full text-center py-12 text-base-content/50">No accelerators found.</div>
+    {% endfor %}
+  </div>
+{% endblock %}

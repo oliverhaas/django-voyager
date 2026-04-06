@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Experiments - Voyager{% endblock %}
+{% block content %}
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-bold">Experiments</h1>
+    <a href="/experiments/new/" class="btn btn-primary">New Experiment</a>
+  </div>
+  <!-- Status filter tabs -->
+  <div class="tabs tabs-boxed mb-6">
+    <a href="/experiments/"
+       class="tab {{ 'tab-active' if not current_status else '' }}">All</a>
+    {% for value, label in status_choices %}
+      <a href="/experiments/?status={{ value }}"
+         class="tab {{ 'tab-active' if current_status == value else '' }}">{{ label }}</a>
+    {% endfor %}
+  </div>
+  <!-- Experiment cards -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    {% for exp in experiments %}
+      <div class="card bg-base-100 shadow">
+        <div class="card-body">
+          <h2 class="card-title">
+            <a href="/experiments/{{ exp.pk }}/" class="link link-hover">{{ exp.name }}</a>
+            <span class="badge badge-{{ 'success' if exp.status == 'active' else ('info' if exp.status == 'draft' else 'ghost') }} badge-sm">
+              {{ exp.get_status_display() }}
+            </span>
+          </h2>
+          <p class="text-sm text-base-content/70">{{ exp.accelerator.name }}</p>
+          {% if exp.description %}
+            <p class="text-sm">{{ exp.description[:120] }}{{ '...' if exp.description|length > 120 else '' }}</p>
+          {% endif %}
+          <div class="card-actions justify-between items-center mt-2">
+            <span class="text-sm text-base-content/50">{{ exp.total_events }} events</span>
+            <a href="/experiments/{{ exp.pk }}/" class="btn btn-sm btn-ghost">View</a>
+          </div>
+        </div>
+      </div>
+    {% else %}
+      <div class="col-span-full text-center py-12 text-base-content/50">No experiments found.</div>
+    {% endfor %}
+  </div>
+{% endblock %}

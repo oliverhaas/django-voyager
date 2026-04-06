@@ -126,6 +126,13 @@ suppress-none-returning = true
   "ARG002", # Unused args in permission overrides (Django signature)
   "RUF012", # Mutable class attributes are Django admin pattern
 ]
+"**/forms.py" = [
+  "RUF012", # Mutable class attributes are Django form Meta pattern
+]
+"**/views.py" = [
+  "PLC0415", # Imports inside view functions for scoping
+  "SLF001",  # _meta access is standard Django pattern
+]
 "**/api.py" = [
   "ANN",     # Ninja view signatures are typed via schemas, not annotations
   "ARG001",  # request param required by Ninja but not always used

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - Voyager{% endblock %}
+{% block content %}
+  <h1 class="text-3xl font-bold mb-6">Dashboard</h1>
+  <!-- Stats cards -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+    <div class="stat bg-base-100 rounded-box shadow">
+      <div class="stat-title">Experiments</div>
+      <div class="stat-value text-primary">{{ experiment_count }}</div>
+      <div class="stat-desc">{{ active_experiments }} active</div>
+    </div>
+    <div class="stat bg-base-100 rounded-box shadow">
+      <div class="stat-title">Collision Events</div>
+      <div class="stat-value text-secondary">{{ event_count }}</div>
+    </div>
+    <div class="stat bg-base-100 rounded-box shadow">
+      <div class="stat-title">Elements</div>
+      <div class="stat-value">{{ element_count }}</div>
+    </div>
+    <div class="stat bg-base-100 rounded-box shadow">
+      <div class="stat-title">Accelerators</div>
+      <div class="stat-value">{{ accelerator_count }}</div>
+    </div>
+  </div>
+  <!-- Recent experiments -->
+  <div class="bg-base-100 rounded-box shadow p-6">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-xl font-semibold">Recent Experiments</h2>
+      <a href="/experiments/new/" class="btn btn-primary btn-sm">New Experiment</a>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Accelerator</th>
+            <th>Status</th>
+            <th>Events</th>
+            <th>Created</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for exp in recent_experiments %}
+            <tr class="hover">
+              <td>
+                <a href="/experiments/{{ exp.pk }}/" class="link link-primary">{{ exp.name }}</a>
+              </td>
+              <td>{{ exp.accelerator.name }}</td>
+              <td>
+                <span class="badge badge-{{ 'success' if exp.status == 'active' else 'ghost' }}">{{ exp.get_status_display() }}</span>
+              </td>
+              <td>{{ exp.total_events }}</td>
+              <td>{{ exp.created_at.strftime("%Y-%m-%d") }}</td>
+            </tr>
+          {% else %}
+            <tr>
+              <td colspan="5" class="text-center text-base-content/50">
+                No experiments yet. Seed some data with <code>manage.py seed --full</code>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}

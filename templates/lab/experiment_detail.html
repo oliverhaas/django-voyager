@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}{{ experiment.name }} - Voyager{% endblock %}
+{% block content %}
+  <div class="mb-6">
+    <div class="text-sm breadcrumbs">
+      <ul>
+        <li>
+          <a href="/experiments/">Experiments</a>
+        </li>
+        <li>{{ experiment.name }}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="flex justify-between items-start mb-6">
+    <div>
+      <h1 class="text-3xl font-bold">{{ experiment.name }}</h1>
+      <p class="text-base-content/70 mt-1">
+        {{ experiment.accelerator.name }} &middot; Led by {{ experiment.lead_researcher.username }}
+      </p>
+    </div>
+    <div class="flex gap-2">
+      <a href="/experiments/{{ experiment.pk }}/edit/"
+         class="btn btn-sm btn-outline">Edit</a>
+      <span class="badge badge-lg badge-{{ 'success' if experiment.status == 'active' else ('info' if experiment.status == 'draft' else 'ghost') }}">
+        {{ experiment.get_status_display() }}
+      </span>
+    </div>
+  </div>
+  {% if experiment.description %}
+    <div class="bg-base-100 rounded-box shadow p-6 mb-6">
+      <p>{{ experiment.description }}</p>
+    </div>
+  {% endif %}
+  <!-- Stats -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+    <div class="stat bg-base-100 rounded-box shadow">
+      <div class="stat-title">Total Events</div>
+      <div class="stat-value text-primary">{{ experiment.total_events }}</div>
+    </div>
+    <div class="stat bg-base-100 rounded-box shadow">
+      <div class="stat-title">Avg Energy</div>
+      <div class="stat-value text-secondary">{{ experiment.avg_energy_gev or '—' }}</div>
+      <div class="stat-desc">GeV</div>
+    </div>
+    <div class="stat bg-base-100 rounded-box shadow">
+      <div class="stat-title">Category</div>
+      <div class="stat-value text-sm">{{ experiment.category.name if experiment.category else '—' }}</div>
+    </div>
+  </div>
+  <!-- Recent collision events -->
+  <div class="bg-base-100 rounded-box shadow p-6">
+    <h2 class="text-xl font-semibold mb-4">Recent Collision Events</h2>
+    <div class="overflow-x-auto">
+      <table class="table table-sm">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Timestamp</th>
+            <th>Energy (GeV)</th>
+            <th>Luminosity</th>
+            <th>Particles</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for event in recent_events %}
+            <tr>
+              <td>{{ event.pk }}</td>
+              <td>{{ event.timestamp.strftime("%Y-%m-%d %H:%M:%S") }}</td>
+              <td>{{ event.energy_gev }}</td>
+              <td>{{ event.luminosity }}</td>
+              <td>{{ event.particle_count }}</td>
+            </tr>
+          {% else %}
+            <tr>
+              <td colspan="5" class="text-center text-base-content/50">No collision events recorded.</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}
