@@ -426,14 +426,14 @@ wheels = [
 
 [[package]]
 name = "django-filthyfields"
-version = "1.9.8b3"
+version = "1.9.8b4"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/88/0a/b8279452a0b7c1d6f2e11bfb671f59991199d00c320c56bd03baa2962ead/django_filthyfields-1.9.8b3.tar.gz", hash = "sha256:e39582c8cb0b20b81f198e4e64c0aae503b5f21cddcc8823147e17fd78950af1", size = 9646, upload-time = "2026-01-22T09:22:16.978Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/2f/73/407756dde0335877ad33d425d37274dc79e5a6c4e45722317f169d248e72/django_filthyfields-1.9.8b4.tar.gz", hash = "sha256:0c29b1401c0e8d20518a62958ab4d4f5e1a797764d2427e04059538f2fe8fb2b", size = 10596, upload-time = "2026-04-06T11:57:21.521Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/74/1d/7384cac7af87d6f176a9309fc172ba1191bdfdc5177f14f02083fe62d504/django_filthyfields-1.9.8b3-py3-none-any.whl", hash = "sha256:6f4fb6c0dfcac10497776da2a5850f1fbf3653dded0ec8b667bff34140e80da0", size = 9240, upload-time = "2026-01-22T09:22:16.021Z" },
+    { url = "https://files.pythonhosted.org/packages/89/d2/70bd6d03700fe901ce2b02dace83448c692fbb2eecef5ae7a12b43d90257/django_filthyfields-1.9.8b4-py3-none-any.whl", hash = "sha256:b4c1872c8dcd75469782fb05a760b53542d2cfe84465c61c910f48c3d5ce8d06", size = 10130, upload-time = "2026-04-06T11:57:20.444Z" },
 ]
 
 [[package]]
@@ -692,7 +692,7 @@ requires-dist = [
     { name = "django-cachex", extras = ["valkey"], specifier = "==0.3.0" },
     { name = "django-celery-beat", specifier = "==2.9.0" },
     { name = "django-celeryx", specifier = "==0.1.0a1" },
-    { name = "django-filthyfields", specifier = "==1.9.8b3" },
+    { name = "django-filthyfields", specifier = "==1.9.8b4" },
     { name = "django-formwork", specifier = "==0.1.0a1" },
     { name = "django-iconx", editable = "../django-iconx" },
     { name = "django-import-export", specifier = "==4.4.0" },

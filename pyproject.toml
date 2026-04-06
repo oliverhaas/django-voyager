@@ -18,7 +18,7 @@ dependencies = [
   "django-admin-boost==0.1.0a1",
   "django-cachex[valkey]==0.3.0",
   "django-celeryx==0.1.0a1",
-  "django-filthyfields==1.9.8b3",
+  "django-filthyfields==1.9.8b4",
   "django-formwork==0.1.0a1",
   "django-iconx==0.1.0a1",
   "django-nplus1==0.1.0a1",
