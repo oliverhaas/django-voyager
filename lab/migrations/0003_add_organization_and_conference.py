@@ -6,43 +6,66 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('lab', '0002_rename_collision_event_to_collision'),
+        ("lab", "0002_rename_collision_event_to_collision"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Organization',
+            name="Organization",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=200, unique=True)),
-                ('abbreviation', models.CharField(blank=True, max_length=20, unique=True)),
-                ('location', models.CharField(max_length=200)),
-                ('website', models.URLField(blank=True)),
-                ('org_type', models.CharField(choices=[('laboratory', 'Laboratory'), ('university', 'University'), ('institute', 'Institute'), ('consortium', 'Consortium'), ('other', 'Other')], max_length=20)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('members', models.ManyToManyField(blank=True, related_name='organizations', to=settings.AUTH_USER_MODEL)),
+                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("name", models.CharField(max_length=200, unique=True)),
+                ("abbreviation", models.CharField(blank=True, max_length=20, unique=True)),
+                ("location", models.CharField(max_length=200)),
+                ("website", models.URLField(blank=True)),
+                (
+                    "org_type",
+                    models.CharField(
+                        choices=[
+                            ("laboratory", "Laboratory"),
+                            ("university", "University"),
+                            ("institute", "Institute"),
+                            ("consortium", "Consortium"),
+                            ("other", "Other"),
+                        ],
+                        max_length=20,
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                (
+                    "members",
+                    models.ManyToManyField(blank=True, related_name="organizations", to=settings.AUTH_USER_MODEL),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Conference',
+            name="Conference",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=200)),
-                ('abbreviation', models.CharField(blank=True, max_length=20)),
-                ('location', models.CharField(max_length=200)),
-                ('start_date', models.DateField()),
-                ('end_date', models.DateField()),
-                ('website', models.URLField(blank=True)),
-                ('description', models.TextField(blank=True)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('experiments', models.ManyToManyField(blank=True, related_name='conferences', to='lab.experiment')),
-                ('organizer', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='conferences', to='lab.organization')),
+                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("name", models.CharField(max_length=200)),
+                ("abbreviation", models.CharField(blank=True, max_length=20)),
+                ("location", models.CharField(max_length=200)),
+                ("start_date", models.DateField()),
+                ("end_date", models.DateField()),
+                ("website", models.URLField(blank=True)),
+                ("description", models.TextField(blank=True)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("experiments", models.ManyToManyField(blank=True, related_name="conferences", to="lab.experiment")),
+                (
+                    "organizer",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="conferences",
+                        to="lab.organization",
+                    ),
+                ),
             ],
             options={
-                'ordering': ['-start_date'],
+                "ordering": ["-start_date"],
             },
         ),
     ]

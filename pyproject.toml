@@ -136,9 +136,11 @@ suppress-none-returning = true
   "SLF001",  # _meta access is standard Django pattern
 ]
 "**/api.py" = [
+  "A002",    # id param shadows builtin - standard Django/Ninja URL pattern
   "ANN",     # Ninja view signatures are typed via schemas, not annotations
   "ARG001",  # request param required by Ninja but not always used
   "B008",    # Query() in defaults is the Ninja pattern
+  "FBT001",  # bool query params are standard in Ninja
   "PLR0913", # Ninja views with many query params
   "TC003",   # Ninja uses types at runtime for query param parsing
 ]
