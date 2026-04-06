@@ -105,6 +105,11 @@ CACHES = {
     },
 }
 
+# Register ValkeyCache as a supported cachalot backend
+import cachalot.settings  # noqa: E402
+
+cachalot.settings.SUPPORTED_CACHE_BACKENDS.add("django_cachex.cache.ValkeyCache")
+
 # --- Auth ---
 
 AUTHENTICATION_BACKENDS = [
