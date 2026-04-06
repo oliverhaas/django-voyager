@@ -82,7 +82,7 @@ async def process_event_image(event_image_id: int) -> None:
     except EventImage.DoesNotExist as e:
         raise Http404 from e
     image.processing_status = ProcessingStatus.PROCESSING
-    await sync_to_async(image.save)()
+    await image.asave()
 
     try:
         img = await asyncio.to_thread(Image.open, image.original_image)
@@ -112,11 +112,11 @@ async def process_event_image(event_image_id: int) -> None:
         )
 
         image.processing_status = ProcessingStatus.COMPLETED
-        await sync_to_async(image.save)()
+        await image.asave()
     except Exception:
         logger.exception("Failed to process image %s", event_image_id)
         image.processing_status = ProcessingStatus.FAILED
-        await sync_to_async(image.save)()
+        await image.asave()
 
 
 async def cleanup_orphaned_images() -> int:

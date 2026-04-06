@@ -73,7 +73,7 @@ async def experiment_create(request: HttpRequest) -> HttpResponse:
         if await sync_to_async(form.is_valid)():
             experiment = await sync_to_async(form.save)(commit=False)
             experiment.lead_researcher = await request.auser()
-            await sync_to_async(experiment.save)()
+            await experiment.asave()
             return redirect("experiment_detail", pk=experiment.pk)
     else:
         form = ExperimentForm()

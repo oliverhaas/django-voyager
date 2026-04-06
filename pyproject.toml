@@ -220,6 +220,14 @@ call-non-callable = "ignore"
 unresolved-attribute = "ignore"
 
 [[tool.ty.overrides]]
+include = ["config/middleware.py"]
+
+[tool.ty.overrides.rules]
+# Dynamic request attributes set by waffle at runtime
+not-iterable = "ignore"
+not-subscriptable = "ignore"
+
+[[tool.ty.overrides]]
 include = ["config/management/**"]
 
 [tool.ty.overrides.rules]
