@@ -20,6 +20,7 @@ dependencies = [
   "django-celeryx==0.1.0a1",
   "django-filthyfields==1.9.8b3",
   "django-formwork==0.1.0a1",
+  "django-iconx==0.1.0a1",
   "django-nplus1==0.1.0a1",
   # Third-party Django
   "django-allauth==65.15.1",
@@ -38,6 +39,8 @@ dependencies = [
   "jinjax==0.63",
 ]
 
+[tool.uv.sources]
+django-iconx = { path = "../django-iconx", editable = true }
 
 [dependency-groups]
 dev = [

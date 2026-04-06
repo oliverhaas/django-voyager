@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     "django_cachex",
     "django_celeryx.admin",
     "django_formwork",
+    "django_iconx",
     # Third-party
     "allauth",
     "allauth.account",
@@ -135,7 +136,10 @@ USE_TZ = True
 # --- Static files ---
 
 STATIC_URL = "static/"
-STATICFILES_DIRS = [BASE_DIR / "static"]
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+    ("icons", BASE_DIR / "node_modules/lucide-static/icons"),
+]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # --- Email ---
@@ -151,6 +155,15 @@ CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_TIMEZONE = "UTC"
 CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
+
+# --- Django Iconx ---
+
+ICONX = {
+    "sets": [{"path": "", "prefix": "lucide"}],
+    "output": str(BASE_DIR / "static/iconx/icons.css"),
+    "mode": "data_uri",
+    "prefix": "icon",
+}
 
 # --- Django Vite ---
 
