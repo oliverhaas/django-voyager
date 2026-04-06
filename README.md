@@ -141,7 +141,7 @@ This stack is meant to be the Django stack of the future. Here's what's not yet 
 | HTMX | 4.0.0-alpha8 | **Alpha** | Officially pre-release, API may change |
 | django-async-backend | 0.0.3 | **Early** | True async DB + `async_atomic`, but very new |
 | Granian | 2.7.2 | **Stable** | Free-threaded support is experimental |
-| Python | 3.14t | **Pre-release** | Free-threaded CPython is experimental |
+| Python | 3.14t | **Stable** | Free-threaded; some packages lack `cp314t` wheels (e.g. `psycopg-binary`) |
 | daisyUI | 5.x | **Stable** | — |
 | Tailwind CSS | 4.x | **Stable** | — |
 | Alpine.js | 3.x | **Stable** | — |
