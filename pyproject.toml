@@ -146,6 +146,9 @@ suppress-none-returning = true
   "RUF012", # Pydantic schemas use mutable defaults
   "TC003",  # Pydantic needs stdlib types at runtime
 ]
+"mock/tasks.py" = [
+  "S311", # random is intentional for mock/simulation data generation
+]
 
 # --- MyPy ---
 

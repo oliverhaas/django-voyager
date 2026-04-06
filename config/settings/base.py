@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     # Project apps
     "config",
     "lab",
+    "mock",
 ]
 
 # --- Middleware ---
