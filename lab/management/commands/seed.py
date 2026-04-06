@@ -140,7 +140,7 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS(f"Seeded {len(accelerators_data)} accelerators ({count} created)."))
 
     def _seed_categories(self) -> None:
-        categories_data = [
+        categories_data: list[dict[str, str | None]] = [
             {"name": "High Energy Physics", "parent_name": None},
             {"name": "Hadron Collider Experiments", "parent_name": "High Energy Physics"},
             {"name": "Lepton Collider Experiments", "parent_name": "High Energy Physics"},
@@ -150,12 +150,14 @@ class Command(BaseCommand):
         name_to_obj: dict[str, ExperimentCategory] = {}
         count = 0
         for data in categories_data:
-            parent = name_to_obj.get(data["parent_name"]) if data["parent_name"] else None
+            parent_name = data["parent_name"]
+            name = data["name"] or ""
+            parent = name_to_obj.get(parent_name) if parent_name else None
             obj, created = ExperimentCategory.objects.get_or_create(
-                name=data["name"],
+                name=name,
                 defaults={"parent": parent},
             )
-            name_to_obj[data["name"]] = obj
+            name_to_obj[name] = obj
             if created:
                 count += 1
         self.stdout.write(self.style.SUCCESS(f"Seeded {len(categories_data)} experiment categories ({count} created)."))

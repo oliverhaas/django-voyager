@@ -11,6 +11,8 @@ syzygy's handle() only wraps its own MigrationAutodetector, losing pgtrigger's m
 This command ensures the styled autodetector inherits from both.
 """
 
+from __future__ import annotations
+
 from typing import Any
 
 from django.core.management.commands.makemigrations import Command as DjangoCommand
@@ -19,9 +21,10 @@ from syzygy.management.commands.makemigrations import Command as SyzygyCommand
 
 
 class Command(SyzygyCommand):
-    def handle(self, *args: Any, disable_syzygy: bool, **options: Any) -> None:
+    def handle(self, *args: Any, disable_syzygy: bool = False, **options: Any) -> None:
         if disable_syzygy:
-            return super().handle(*args, disable_syzygy=disable_syzygy, **options)
+            super().handle(*args, disable_syzygy=disable_syzygy, **options)
+            return
 
         # self.autodetector has already been patched by pgtrigger (via AppConfig.ready)
         # to include MigrationAutodetectorMixin. Build a combined autodetector that
@@ -30,7 +33,7 @@ class Command(SyzygyCommand):
         pgtrigger_patched = self.autodetector
         style = self.style
 
-        class StyledMigrationAutodetector(SyzygyMigrationAutodetector, pgtrigger_patched):  # type: ignore[valid-type]
+        class StyledMigrationAutodetector(SyzygyMigrationAutodetector, pgtrigger_patched):  # type: ignore[misc]
             def __init__(self, *args: Any, **kwargs: Any) -> None:
                 super().__init__(*args, **kwargs, style=style)
 
@@ -38,6 +41,6 @@ class Command(SyzygyCommand):
         try:
             # Call grandparent (Django's makemigrations.Command) directly so we
             # don't let syzygy re-patch autodetector and overwrite our combined one.
-            return DjangoCommand.handle(self, *args, **options)
+            DjangoCommand.handle(self, *args, **options)
         finally:
             self.autodetector = pgtrigger_patched

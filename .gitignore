@@ -44,6 +44,9 @@ staticfiles/
 # Docker
 dump.rdb
 
+# Claude
+.claude/
+CLAUDE.md
+
 # Misc
 *.log
-CLAUDE.md

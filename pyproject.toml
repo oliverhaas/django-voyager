@@ -150,6 +150,7 @@ warn_redundant_casts = true
 warn_unused_ignores = true
 warn_unreachable = false
 disable_error_code = ["import-untyped"]
+exclude = ["config/management/"]
 
 [tool.django-stubs]
 django_settings_module = "config.settings.base"
@@ -174,6 +175,8 @@ module = [
   "tenacity.*",
   "tree_queries",
   "tree_queries.*",
+  "syzygy",
+  "syzygy.*",
   "waffle",
   "waffle.*",
 ]
@@ -201,6 +204,15 @@ include = ["lab/**"]
 # Untyped third-party packages (dirtyfields, tree_queries, pghistory, etc.)
 call-non-callable = "ignore"
 unresolved-attribute = "ignore"
+
+[[tool.ty.overrides]]
+include = ["config/management/**"]
+
+[tool.ty.overrides.rules]
+# Dynamic class construction for combining pgtrigger + syzygy autodetectors
+unsupported-base = "ignore"
+invalid-attribute-access = "ignore"
+invalid-return-type = "ignore"
 
 [[tool.ty.overrides]]
 include = ["config/jinja2.py"]
