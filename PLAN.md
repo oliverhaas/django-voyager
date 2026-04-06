@@ -46,7 +46,6 @@ Building packages in isolation makes it easy to miss friction between them. A re
 - django-cachalot — queryset caching
 - django-import-export — data import/export in admin
 - django-ninja — API layer
-- django-unfold — admin theme (needs investigation: Jinja2 compatibility with django-admin-boost)
 - django-celery-beat — periodic task scheduling
 - django-jinjax — Jinja2 components (probably)
 - django-allauth — authentication
@@ -92,11 +91,7 @@ Building packages in isolation makes it easy to miss friction between them. A re
 
 ## Open questions
 
-- **django-unfold + Jinja2** — does unfold work with Jinja2 templates? May need django-admin-boost to handle the conversion, or unfold may need to be dropped/replaced
-- **django-jinjax vs django-components-lite** — both do components, jinjax is Jinja2-native. Pick one.
 - **Static files** — can granian serve static files directly in production, or do we need whitenoise?
-- **syzygy + pg-zero-downtime-migrations** — need to verify compatibility and write patches if needed
-- **What app to build?** — needs to be non-trivial enough to exercise everything but not so complex that it becomes its own project
 
 ## Notes
 

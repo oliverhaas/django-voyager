@@ -33,7 +33,6 @@ dependencies = [
   "django-pgtrigger==4.17.0",
   "django-syzygy==1.2.3",
   "django-tree-queries==0.24.0",
-  "django-unfold==0.87.0",
   "django-vite==3.1.0",
   "django-waffle==5.0.0",
   "jinjax==0.63",
