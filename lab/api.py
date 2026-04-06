@@ -10,12 +10,12 @@ from lab.services import ingest_collision
 router = Router()
 
 
-@router.get("/elements/", response=list[ElementOut])
+@router.get("/elements/", response=list[ElementOut], tags=["Elements"])
 def list_elements(request):
     return list(Element.objects.all())
 
 
-@router.get("/experiments/", response=list[ExperimentOut])
+@router.get("/experiments/", response=list[ExperimentOut], tags=["Experiments"])
 def list_experiments(request, status: str | None = Query(None)):
     qs = Experiment.objects.all()
     if status:
@@ -23,7 +23,7 @@ def list_experiments(request, status: str | None = Query(None)):
     return list(qs)
 
 
-@router.post("/collisions/", response={201: CollisionOut})
+@router.post("/collisions/", response={201: CollisionOut}, tags=["Collisions"])
 def create_collision(request, payload: CollisionIn):
     event = ingest_collision(
         experiment_id=payload.experiment_id,
@@ -38,7 +38,7 @@ def create_collision(request, payload: CollisionIn):
     return Status(201, event)
 
 
-@router.get("/collisions/", response=list[CollisionOut])
+@router.get("/collisions/", response=list[CollisionOut], tags=["Collisions"])
 def list_collisions(
     request,
     experiment_id: int | None = Query(None),
