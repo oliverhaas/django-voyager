@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     "pghistory",
     "pgtrigger",
     "waffle",
+    "django_async_backend",
     # Project apps
     "config",
     "lab",
@@ -88,7 +89,7 @@ ASGI_APPLICATION = "config.asgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
+        "ENGINE": "django_async_backend.db.backends.postgresql",
         "NAME": os.environ.get("POSTGRES_DB", "voyager"),
         "USER": os.environ.get("POSTGRES_USER", "voyager"),
         "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "voyager"),

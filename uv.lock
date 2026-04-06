@@ -2,6 +2,9 @@ version = 1
 revision = 3
 requires-python = ">=3.14"
 
+[manifest]
+overrides = [{ name = "psycopg-binary", marker = "sys_platform == 'never'" }]
+
 [[package]]
 name = "amqp"
 version = "5.3.1"
@@ -367,6 +370,20 @@ wheels = [
 ]
 
 [[package]]
+name = "django-async-backend"
+version = "0.0.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "django" },
+    { name = "psycopg", extra = ["binary"] },
+    { name = "pydantic" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/31/f4/713a5f182fb7b8209c634b75a82579df99fc25ee348044dd3cba4036946c/django_async_backend-0.0.3.tar.gz", hash = "sha256:cb1d22d23e1f9ace88960b776fd7e2b875002cd4cb1789594191556598be47f4", size = 96450, upload-time = "2026-03-18T22:43:46.357Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/c1/3c/4428962bc8c5e454885f704aeaeb92335d7afeca3756217528ab4781a992/django_async_backend-0.0.3-py3-none-any.whl", hash = "sha256:481d0d3164e112849be3eb0a8034707a9edc7a060f30f8c4344489ffa91eed90", size = 102971, upload-time = "2026-03-18T22:43:45.224Z" },
+]
+
+[[package]]
 name = "django-cachalot"
 version = "2.9.0"
 source = { registry = "https://pypi.org/simple" }
@@ -635,6 +652,7 @@ dependencies = [
     { name = "django-admin-boost" },
     { name = "django-allauth" },
     { name = "django-anymail" },
+    { name = "django-async-backend" },
     { name = "django-cachalot" },
     { name = "django-cachex", extra = ["valkey"] },
     { name = "django-celery-beat" },
@@ -688,6 +706,7 @@ requires-dist = [
     { name = "django-admin-boost", specifier = "==0.1.0a1" },
     { name = "django-allauth", specifier = "==65.15.1" },
     { name = "django-anymail", specifier = "==14.0" },
+    { name = "django-async-backend", specifier = "==0.0.3" },
     { name = "django-cachalot", specifier = "==2.9.0" },
     { name = "django-cachex", extras = ["valkey"], specifier = "==0.3.0" },
     { name = "django-celery-beat", specifier = "==2.9.0" },
@@ -1254,9 +1273,17 @@ wheels = [
 ]
 
 [package.optional-dependencies]
+binary = [
+    { name = "psycopg-binary", marker = "sys_platform == 'never'" },
+]
 c = [
     { name = "psycopg-c", marker = "implementation_name != 'pypy'" },
 ]
+
+[[package]]
+name = "psycopg-binary"
+version = "3.3.3"
+source = { registry = "https://pypi.org/simple" }
 
 [[package]]
 name = "psycopg-c"

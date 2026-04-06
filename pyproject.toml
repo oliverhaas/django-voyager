@@ -36,8 +36,15 @@ dependencies = [
   "django-tree-queries==0.24.0",
   "django-vite==3.1.0",
   "django-waffle==5.0.0",
+  "django-async-backend==0.0.3",
   "jinjax==0.63",
 ]
+
+[tool.uv]
+# django-async-backend depends on psycopg[binary] but binary wheels aren't
+# available for free-threaded Python 3.14t. We already have psycopg[c] which
+# provides the C-accelerated adapter compiled from source.
+override-dependencies = ["psycopg-binary ; sys_platform == 'never'"]
 
 [tool.uv.sources]
 django-iconx = { path = "../django-iconx", editable = true }
@@ -177,6 +184,8 @@ ignore_missing_imports = true
 module = [
   "celery",
   "celery.*",
+  "django_async_backend",
+  "django_async_backend.*",
   "dirtyfields",
   "dirtyfields.*",
   "import_export",
