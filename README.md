@@ -116,21 +116,47 @@ Integration issues discovered by this project (the whole point):
 | Celery `valkey://` scheme | Known | Kombu doesn't recognize `valkey://` transport — Celery broker error on startup (non-blocking) |
 | Django async transactions | Worked around | `transaction.atomic()` is sync-only — using django-async-backend's `async_atomic` |
 
-## Remaining work
+## Production readiness tracker
 
-### Package maturity
+This stack is meant to be the Django stack of the future. Here's what's not yet fully production-ready:
 
-Our packages need to reach stable releases:
-- **django-admin-boost** — fix unfold compatibility, publish stable
-- **django-formwork** — async forms, Jinja2 support
-- **django-celeryx** — stabilize API
-- **django-iconx** — publish to PyPI
-- **django-nplus1** — stabilize API
+### Our packages
 
-### Upstream contributions
+| Package | Version | Status | Blocking issues |
+|---------|---------|--------|-----------------|
+| django-admin-boost | 0.1.0a1 | Alpha | Unfold compat ([#14](https://github.com/oliverhaas/django-admin-boost/issues/14)) |
+| django-cachex | 0.3.0 | **Stable** | — |
+| django-celeryx | 0.1.0a1 | Alpha | API stabilization needed |
+| django-formwork | 0.1.0a1 | Alpha | Async forms ([#23](https://github.com/oliverhaas/django-formwork/issues/23)), Jinja2 ([#24](https://github.com/oliverhaas/django-formwork/issues/24)) |
+| django-filthyfields | 1.9.8b4 | Beta | — |
+| django-iconx | 0.1.0a1 | Alpha | Not yet on PyPI |
+| django-nplus1 | 0.1.0a1 | Alpha | API stabilization needed |
+| celery-asyncio | 6.0.0a2 | Alpha | — |
 
-- **django-waffle** — async support PR ([plan](https://github.com/oliverhaas/django-waffle/blob/master/ASYNC_PLAN.md))
-- **Django core** — async forms (DEP needed), async `transaction.atomic` ([#33882](https://code.djangoproject.com/ticket/33882))
+### Third-party dependencies
+
+| Package | Version | Status | Notes |
+|---------|---------|--------|-------|
+| Django | 6.0 | **Stable** | Async ORM is `sync_to_async` internally (not true async I/O) |
+| HTMX | 4.0.0-alpha8 | **Alpha** | Officially pre-release, API may change |
+| django-async-backend | 0.0.3 | **Early** | True async DB + `async_atomic`, but very new |
+| Granian | 2.7.2 | **Stable** | Free-threaded support is experimental |
+| Python | 3.14t | **Pre-release** | Free-threaded CPython is experimental |
+| daisyUI | 5.x | **Stable** | — |
+| Tailwind CSS | 4.x | **Stable** | — |
+| Alpine.js | 3.x | **Stable** | — |
+
+### Django ecosystem async gaps
+
+| Area | Status | Details |
+|------|--------|---------|
+| Async ORM | Working | Via django-async-backend for true async; Django's built-in uses thread pool |
+| Async transactions | Working | Via `django_async_backend.db.async_atomic`; Django core has no async `transaction.atomic` ([#33882](https://code.djangoproject.com/ticket/33882)) |
+| Async forms | Not started | No `ais_valid()`, `afull_clean()`, `asave()` in Django; proposal filed ([django-formwork#23](https://github.com/oliverhaas/django-formwork/issues/23)) |
+| Async middleware | Done | Django built-ins are async; waffle replaced with async version; allauth already async |
+| Async views | Done | All views and API endpoints are `async def` |
+| django-waffle async | PR submitted | `aflag_is_active` / `aswitch_is_active` ([#441](https://github.com/django-waffle/django-waffle/issues/441), [plan](https://github.com/oliverhaas/django-waffle/blob/master/ASYNC_PLAN.md)) |
+| Celery `valkey://` | Known issue | Kombu doesn't recognize `valkey://` transport scheme |
 
 ### Project enhancements
 
