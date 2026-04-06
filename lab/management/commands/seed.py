@@ -13,7 +13,7 @@ from django.utils import timezone
 
 from lab.models import (
     Accelerator,
-    CollisionEvent,
+    Collision,
     Element,
     Experiment,
     ExperimentCategory,
@@ -71,7 +71,7 @@ class Command(BaseCommand):
             self._seed_test_data()
 
     def _flush(self) -> None:
-        CollisionEvent.objects.all().delete()
+        Collision.objects.all().delete()
         Experiment.objects.all().delete()
         ExperimentCategory.objects.all().delete()
         Accelerator.objects.all().delete()
@@ -269,9 +269,9 @@ class Command(BaseCommand):
                 count += 1
         self.stdout.write(self.style.SUCCESS(f"Seeded {len(experiments_data)} experiments ({count} created)."))
 
-        self._seed_collision_events(experiments)
+        self._seed_collisions(experiments)
 
-    def _seed_collision_events(self, experiments: list[Experiment]) -> None:
+    def _seed_collisions(self, experiments: list[Experiment]) -> None:
         active_experiments = [e for e in experiments if e.status == ExperimentStatus.ACTIVE]
 
         total_created = 0
@@ -288,13 +288,13 @@ class Command(BaseCommand):
             base_energy = energy_by_experiment.get(experiment.name, Decimal("1000.000"))
             events_to_create = 20 if i == 0 else 15
 
-            existing_count = CollisionEvent.objects.filter(experiment=experiment).count()
+            existing_count = Collision.objects.filter(experiment=experiment).count()
             if existing_count >= events_to_create:
                 continue
 
             for j in range(events_to_create - existing_count):
                 energy_variation = Decimal(str(j % 5)) * Decimal("10.000")
-                CollisionEvent.objects.create(
+                Collision.objects.create(
                     experiment=experiment,
                     timestamp=base_time + datetime.timedelta(hours=j * 6 + i * 24),
                     energy_gev=base_energy + energy_variation,

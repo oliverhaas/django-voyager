@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_GET, require_http_methods
 
 from lab.forms import ExperimentForm
-from lab.models import Accelerator, CollisionEvent, Element, Experiment
+from lab.models import Accelerator, Collision, Element, Experiment
 
 if TYPE_CHECKING:
     from django.http import HttpRequest, HttpResponse
@@ -20,7 +20,7 @@ def dashboard(request: HttpRequest) -> HttpResponse:
         "active_experiments": Experiment.objects.filter(status="active").count(),
         "element_count": Element.objects.count(),
         "accelerator_count": Accelerator.objects.count(),
-        "event_count": CollisionEvent.objects.count(),
+        "event_count": Collision.objects.count(),
         "recent_experiments": Experiment.objects.select_related("accelerator", "lead_researcher").order_by(
             "-created_at",
         )[:5],
@@ -50,7 +50,7 @@ def experiment_detail(request: HttpRequest, pk: int) -> HttpResponse:
         Experiment.objects.select_related("accelerator", "lead_researcher", "category"),
         pk=pk,
     )
-    recent_events = experiment.collision_events.order_by("-timestamp")[:20]
+    recent_events = experiment.collisions.order_by("-timestamp")[:20]
     context = {
         "experiment": experiment,
         "recent_events": recent_events,

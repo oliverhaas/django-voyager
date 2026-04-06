@@ -4,7 +4,7 @@ from lab.models import ExperimentStatus
 
 from .factories import (
     AcceleratorFactory,
-    CollisionEventFactory,
+    CollisionFactory,
     ElementFactory,
     ExperimentCategoryFactory,
     ExperimentFactory,
@@ -87,19 +87,19 @@ class TestExperiment:
 
 
 @pytest.mark.django_db
-class TestCollisionEvent:
+class TestCollision:
     def test_str(self):
-        event = CollisionEventFactory()
-        assert "Event" in str(event)
+        event = CollisionFactory()
+        assert "Collision" in str(event)
 
     def test_ordering(self):
         from django.utils import timezone
 
         exp = ExperimentFactory()
-        e1 = CollisionEventFactory(experiment=exp, timestamp=timezone.now())
-        e2 = CollisionEventFactory(experiment=exp, timestamp=timezone.now())
+        e1 = CollisionFactory(experiment=exp, timestamp=timezone.now())
+        e2 = CollisionFactory(experiment=exp, timestamp=timezone.now())
 
-        from lab.models import CollisionEvent
+        from lab.models import Collision
 
-        events = list(CollisionEvent.objects.filter(experiment=exp))
+        events = list(Collision.objects.filter(experiment=exp))
         assert events[0] == e2  # newest first

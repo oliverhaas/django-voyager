@@ -52,13 +52,13 @@ class TestExperimentAdmin:
 
 
 @pytest.mark.django_db
-class TestCollisionEventAdmin:
+class TestCollisionAdmin:
     def test_changelist_loads(self, admin_client):
-        url = reverse("admin:lab_collisionevent_changelist")
+        url = reverse("admin:lab_collision_changelist")
         response = admin_client.get(url)
         assert response.status_code == 200
 
     def test_no_add_permission(self, admin_client):
-        url = reverse("admin:lab_collisionevent_add")
+        url = reverse("admin:lab_collision_add")
         response = admin_client.get(url)
         assert response.status_code == 403

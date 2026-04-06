@@ -3,9 +3,9 @@ from decimal import Decimal
 
 from ninja import Query, Router, Status
 
-from lab.models import CollisionEvent, Element, Experiment
-from lab.schemas import CollisionEventIn, CollisionEventOut, ElementOut, ExperimentOut
-from lab.services import ingest_collision_event
+from lab.models import Collision, Element, Experiment
+from lab.schemas import CollisionIn, CollisionOut, ElementOut, ExperimentOut
+from lab.services import ingest_collision
 
 router = Router()
 
@@ -23,9 +23,9 @@ def list_experiments(request, status: str | None = Query(None)):
     return list(qs)
 
 
-@router.post("/events/", response={201: CollisionEventOut})
-def create_event(request, payload: CollisionEventIn):
-    event = ingest_collision_event(
+@router.post("/collisions/", response={201: CollisionOut})
+def create_collision(request, payload: CollisionIn):
+    event = ingest_collision(
         experiment_id=payload.experiment_id,
         data={
             "timestamp": payload.timestamp,
@@ -38,8 +38,8 @@ def create_event(request, payload: CollisionEventIn):
     return Status(201, event)
 
 
-@router.get("/events/", response=list[CollisionEventOut])
-def list_events(
+@router.get("/collisions/", response=list[CollisionOut])
+def list_collisions(
     request,
     experiment_id: int | None = Query(None),
     min_energy: Decimal | None = Query(None),
@@ -47,7 +47,7 @@ def list_events(
     since: datetime | None = Query(None),
     until: datetime | None = Query(None),
 ):
-    qs = CollisionEvent.objects.all()
+    qs = Collision.objects.all()
     if experiment_id is not None:
         qs = qs.filter(experiment_id=experiment_id)
     if min_energy is not None:

@@ -9,7 +9,7 @@ from PIL import Image
 
 from lab.models import (
     Accelerator,
-    CollisionEvent,
+    Collision,
     Element,
     EventImage,
     Experiment,
@@ -74,9 +74,9 @@ class ExperimentFactory(factory.django.DjangoModelFactory):
     ended_at = None
 
 
-class CollisionEventFactory(factory.django.DjangoModelFactory):
+class CollisionFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = CollisionEvent
+        model = Collision
 
     experiment = factory.SubFactory(ExperimentFactory)
     timestamp = factory.LazyFunction(timezone.now)
@@ -99,6 +99,6 @@ class EventImageFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = EventImage
 
-    collision_event = factory.SubFactory(CollisionEventFactory)
+    collision = factory.SubFactory(CollisionFactory)
     original_image = factory.LazyFunction(make_test_image)
     processing_status = ProcessingStatus.PENDING

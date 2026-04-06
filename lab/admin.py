@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 from lab.models import (
     Accelerator,
-    CollisionEvent,
+    Collision,
     Element,
     EventImage,
     Experiment,
@@ -53,8 +53,8 @@ class ExperimentAdmin(admin.ModelAdmin):
     readonly_fields = ["total_events", "avg_energy_gev", "created_at", "updated_at"]
 
 
-@admin.register(CollisionEvent)
-class CollisionEventAdmin(admin.ModelAdmin):
+@admin.register(Collision)
+class CollisionAdmin(admin.ModelAdmin):
     list_display = ["pk", "experiment", "timestamp", "energy_gev", "particle_count"]
     list_filter = ["experiment"]
     readonly_fields = [
@@ -70,5 +70,5 @@ class CollisionEventAdmin(admin.ModelAdmin):
     def has_add_permission(self, request: HttpRequest) -> bool:
         return False
 
-    def has_change_permission(self, request: HttpRequest, obj: CollisionEvent | None = None) -> bool:
+    def has_change_permission(self, request: HttpRequest, obj: Collision | None = None) -> bool:
         return False

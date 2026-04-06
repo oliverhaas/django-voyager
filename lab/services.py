@@ -13,22 +13,22 @@ from django.utils import timezone
 from PIL import Image, ImageFilter
 from tenacity import retry, stop_after_attempt, wait_exponential
 
-from lab.models import Accelerator, CollisionEvent, EventImage, Experiment, ProcessingStatus
+from lab.models import Accelerator, Collision, EventImage, Experiment, ProcessingStatus
 
 logger = logging.getLogger(__name__)
 
 
-def ingest_collision_event(*, experiment_id: int, data: dict) -> CollisionEvent:
+def ingest_collision(*, experiment_id: int, data: dict) -> Collision:
     """Validate and create a collision event for the given experiment."""
     experiment = get_object_or_404(Experiment, pk=experiment_id)
-    event = CollisionEvent.objects.create(experiment=experiment, **data)
+    event = Collision.objects.create(experiment=experiment, **data)
     refresh_experiment_stats(experiment.pk)
     return event
 
 
 def refresh_experiment_stats(experiment_id: int) -> None:
     """Update denormalized stats on an experiment from its collision events."""
-    stats = CollisionEvent.objects.filter(experiment_id=experiment_id).aggregate(
+    stats = Collision.objects.filter(experiment_id=experiment_id).aggregate(
         total=Count("id"),
         avg_energy=Avg("energy_gev"),
     )

@@ -82,8 +82,8 @@ class Experiment(DirtyFieldsMixin, models.Model):
         super().save(*args, **kwargs)
 
 
-class CollisionEvent(models.Model):
-    experiment = models.ForeignKey(Experiment, on_delete=models.CASCADE, related_name="collision_events")
+class Collision(models.Model):
+    experiment = models.ForeignKey(Experiment, on_delete=models.CASCADE, related_name="collisions")
     timestamp = models.DateTimeField()
     energy_gev = models.DecimalField(max_digits=12, decimal_places=3)
     luminosity = models.DecimalField(max_digits=12, decimal_places=3)
@@ -94,7 +94,7 @@ class CollisionEvent(models.Model):
         ordering: ClassVar = ["-timestamp"]
 
     def __str__(self) -> str:
-        return f"Event {self.pk} @ {self.timestamp}"
+        return f"Collision {self.pk} @ {self.timestamp}"
 
 
 class ProcessingStatus(models.TextChoices):
@@ -105,7 +105,7 @@ class ProcessingStatus(models.TextChoices):
 
 
 class EventImage(models.Model):
-    collision_event = models.ForeignKey(CollisionEvent, on_delete=models.CASCADE, related_name="images")
+    collision = models.ForeignKey(Collision, on_delete=models.CASCADE, related_name="images")
     original_image = models.ImageField(upload_to="event_images/originals/")
     thumbnail = models.ImageField(upload_to="event_images/thumbnails/", blank=True)
     processed_image = models.ImageField(upload_to="event_images/processed/", blank=True)
@@ -117,4 +117,4 @@ class EventImage(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
-        return f"Image {self.pk} for Event {self.collision_event_id}"
+        return f"Image {self.pk} for Collision {self.collision_id}"

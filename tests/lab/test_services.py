@@ -9,24 +9,24 @@ from lab.models import EventImage, ProcessingStatus
 from lab.services import (
     cleanup_orphaned_images,
     dispatch_webhook,
-    ingest_collision_event,
+    ingest_collision,
     process_event_image,
     refresh_experiment_stats,
 )
 
 from .factories import (
     AcceleratorFactory,
-    CollisionEventFactory,
+    CollisionFactory,
     EventImageFactory,
     ExperimentFactory,
 )
 
 
 @pytest.mark.django_db
-class TestIngestCollisionEvent:
+class TestIngestCollision:
     def test_creates_event(self):
         exp = ExperimentFactory()
-        event = ingest_collision_event(
+        event = ingest_collision(
             experiment_id=exp.pk,
             data={
                 "timestamp": timezone.now(),
@@ -41,7 +41,7 @@ class TestIngestCollisionEvent:
 
     def test_updates_experiment_stats(self):
         exp = ExperimentFactory()
-        ingest_collision_event(
+        ingest_collision(
             experiment_id=exp.pk,
             data={
                 "timestamp": timezone.now(),
@@ -60,8 +60,8 @@ class TestIngestCollisionEvent:
 class TestRefreshExperimentStats:
     def test_updates_stats(self):
         exp = ExperimentFactory()
-        CollisionEventFactory(experiment=exp, energy_gev=Decimal("100.000"))
-        CollisionEventFactory(experiment=exp, energy_gev=Decimal("200.000"))
+        CollisionFactory(experiment=exp, energy_gev=Decimal("100.000"))
+        CollisionFactory(experiment=exp, energy_gev=Decimal("200.000"))
         refresh_experiment_stats(exp.pk)
         exp.refresh_from_db()
         assert exp.total_events == 2

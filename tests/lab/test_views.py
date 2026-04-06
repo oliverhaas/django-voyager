@@ -3,7 +3,7 @@ from django.test import Client
 
 from .factories import (
     AcceleratorFactory,
-    CollisionEventFactory,
+    CollisionFactory,
     ElementFactory,
     ExperimentFactory,
     UserFactory,
@@ -66,7 +66,7 @@ class TestExperimentDetail:
 
     def test_shows_events(self, client):
         exp = ExperimentFactory()
-        CollisionEventFactory(experiment=exp)
+        CollisionFactory(experiment=exp)
         response = client.get(f"/experiments/{exp.pk}/")
         assert response.status_code == 200
 

@@ -24,7 +24,7 @@ class ExperimentOut(Schema):
     created_at: datetime
 
 
-class CollisionEventIn(Schema):
+class CollisionIn(Schema):
     experiment_id: int
     timestamp: datetime
     energy_gev: Decimal
@@ -33,7 +33,7 @@ class CollisionEventIn(Schema):
     raw_data: dict = {}
 
 
-class CollisionEventOut(Schema):
+class CollisionOut(Schema):
     id: int
     experiment_id: int
     timestamp: datetime

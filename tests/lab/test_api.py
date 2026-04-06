@@ -4,9 +4,9 @@ import pytest
 from django.test import Client
 from django.utils import timezone
 
-from lab.models import CollisionEvent
+from lab.models import Collision
 
-from .factories import CollisionEventFactory, ElementFactory, ExperimentFactory
+from .factories import CollisionFactory, ElementFactory, ExperimentFactory
 
 
 @pytest.fixture
@@ -52,7 +52,7 @@ class TestExperimentsAPI:
 
 
 @pytest.mark.django_db
-class TestEventsAPI:
+class TestCollisionsAPI:
     def test_create_event(self, client):
         exp = ExperimentFactory()
         payload = {
@@ -63,27 +63,27 @@ class TestEventsAPI:
             "particle_count": 42,
             "raw_data": {"detector": "CMS"},
         }
-        response = client.post("/api/events/", data=payload, content_type="application/json")
+        response = client.post("/api/collisions/", data=payload, content_type="application/json")
         assert response.status_code == 201
-        assert CollisionEvent.objects.count() == 1
+        assert Collision.objects.count() == 1
 
     def test_list_events(self, client):
-        CollisionEventFactory()
-        response = client.get("/api/events/")
+        CollisionFactory()
+        response = client.get("/api/collisions/")
         assert response.status_code == 200
         assert len(response.json()) == 1
 
     def test_filter_events_by_experiment(self, client):
-        e1 = CollisionEventFactory()
-        CollisionEventFactory()
-        response = client.get(f"/api/events/?experiment_id={e1.experiment_id}")
+        e1 = CollisionFactory()
+        CollisionFactory()
+        response = client.get(f"/api/collisions/?experiment_id={e1.experiment_id}")
         data = response.json()
         assert len(data) == 1
         assert data[0]["experiment_id"] == e1.experiment_id
 
     def test_filter_events_by_energy_range(self, client):
-        CollisionEventFactory(energy_gev=Decimal("100.000"))
-        CollisionEventFactory(energy_gev=Decimal("200.000"))
-        response = client.get("/api/events/?min_energy=150&max_energy=250")
+        CollisionFactory(energy_gev=Decimal("100.000"))
+        CollisionFactory(energy_gev=Decimal("200.000"))
+        response = client.get("/api/collisions/?min_energy=150&max_energy=250")
         data = response.json()
         assert len(data) == 1
