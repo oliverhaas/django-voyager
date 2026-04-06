@@ -1,4 +1,4 @@
-from unittest.mock import patch
+from unittest.mock import AsyncMock, patch
 
 import pytest
 
@@ -15,7 +15,7 @@ from .factories import AcceleratorFactory, EventImageFactory
 class TestProcessEventImageTask:
     def test_calls_service(self):
         image = EventImageFactory()
-        with patch("lab.tasks.process_event_image") as mock:
+        with patch("lab.tasks.process_event_image", new_callable=AsyncMock) as mock:
             process_event_image_task(image.pk)
         mock.assert_called_once_with(image.pk)
 
@@ -24,7 +24,7 @@ class TestProcessEventImageTask:
 class TestDispatchWebhookTask:
     def test_calls_service(self):
         acc = AcceleratorFactory()
-        with patch("lab.tasks.dispatch_webhook") as mock:
+        with patch("lab.tasks.dispatch_webhook", new_callable=AsyncMock) as mock:
             dispatch_webhook_task(
                 accelerator_id=acc.pk,
                 event_type="collision",
@@ -39,7 +39,7 @@ class TestDispatchWebhookTask:
 
 class TestCleanupOrphanedImagesTask:
     def test_calls_service(self):
-        with patch("lab.tasks.cleanup_orphaned_images", return_value=0) as mock:
+        with patch("lab.tasks.cleanup_orphaned_images", new_callable=AsyncMock, return_value=0) as mock:
             result = cleanup_orphaned_images_task()
         mock.assert_called_once()
         assert result == 0

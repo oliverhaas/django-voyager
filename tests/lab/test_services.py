@@ -1,8 +1,9 @@
 from datetime import timedelta
 from decimal import Decimal
-from unittest.mock import patch
+from unittest.mock import AsyncMock, patch
 
 import pytest
+from asgiref.sync import sync_to_async
 from django.utils import timezone
 
 from lab.models import EventImage, ProcessingStatus
@@ -22,11 +23,11 @@ from .factories import (
 )
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db(transaction=True)
 class TestIngestCollision:
-    def test_creates_event(self):
-        exp = ExperimentFactory()
-        event = ingest_collision(
+    async def test_creates_event(self):
+        exp = await sync_to_async(ExperimentFactory)()
+        event = await ingest_collision(
             experiment_id=exp.pk,
             data={
                 "timestamp": timezone.now(),
@@ -39,9 +40,9 @@ class TestIngestCollision:
         assert event.pk is not None
         assert event.experiment == exp
 
-    def test_updates_experiment_stats(self):
-        exp = ExperimentFactory()
-        ingest_collision(
+    async def test_updates_experiment_stats(self):
+        exp = await sync_to_async(ExperimentFactory)()
+        await ingest_collision(
             experiment_id=exp.pk,
             data={
                 "timestamp": timezone.now(),
@@ -51,56 +52,56 @@ class TestIngestCollision:
                 "raw_data": {},
             },
         )
-        exp.refresh_from_db()
+        await exp.arefresh_from_db()
         assert exp.total_events == 1
         assert exp.avg_energy_gev == Decimal("100.000")
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db(transaction=True)
 class TestRefreshExperimentStats:
-    def test_updates_stats(self):
-        exp = ExperimentFactory()
-        CollisionFactory(experiment=exp, energy_gev=Decimal("100.000"))
-        CollisionFactory(experiment=exp, energy_gev=Decimal("200.000"))
-        refresh_experiment_stats(exp.pk)
-        exp.refresh_from_db()
+    async def test_updates_stats(self):
+        exp = await sync_to_async(ExperimentFactory)()
+        await sync_to_async(CollisionFactory)(experiment=exp, energy_gev=Decimal("100.000"))
+        await sync_to_async(CollisionFactory)(experiment=exp, energy_gev=Decimal("200.000"))
+        await refresh_experiment_stats(exp.pk)
+        await exp.arefresh_from_db()
         assert exp.total_events == 2
         assert exp.avg_energy_gev == Decimal("150.000")
 
-    def test_no_events(self):
-        exp = ExperimentFactory()
-        refresh_experiment_stats(exp.pk)
-        exp.refresh_from_db()
+    async def test_no_events(self):
+        exp = await sync_to_async(ExperimentFactory)()
+        await refresh_experiment_stats(exp.pk)
+        await exp.arefresh_from_db()
         assert exp.total_events == 0
         assert exp.avg_energy_gev is None
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db(transaction=True)
 class TestDispatchWebhook:
-    def test_disabled_by_switch(self):
-        acc = AcceleratorFactory(webhook_url="https://example.com/hook")
-        result = dispatch_webhook(
+    async def test_disabled_by_switch(self):
+        acc = await sync_to_async(AcceleratorFactory)(webhook_url="https://example.com/hook")
+        result = await dispatch_webhook(
             accelerator_id=acc.pk,
             event_type="collision",
             payload={"count": 1},
         )
         assert result is False
 
-    def test_no_webhook_url(self):
-        acc = AcceleratorFactory(webhook_url="")
+    async def test_no_webhook_url(self):
+        acc = await sync_to_async(AcceleratorFactory)(webhook_url="")
         with patch("waffle.switch_is_active", return_value=True):
-            result = dispatch_webhook(
+            result = await dispatch_webhook(
                 accelerator_id=acc.pk,
                 event_type="collision",
                 payload={"count": 1},
             )
         assert result is False
 
-    @patch("lab.services._send_webhook")
-    def test_sends_webhook(self, mock_send):
-        acc = AcceleratorFactory(webhook_url="https://example.com/hook")
-        with patch("waffle.switch_is_active", return_value=True):
-            result = dispatch_webhook(
+    async def test_sends_webhook(self):
+        acc = await sync_to_async(AcceleratorFactory)(webhook_url="https://example.com/hook")
+        mock_send = AsyncMock()
+        with patch("lab.services._send_webhook", mock_send), patch("waffle.switch_is_active", return_value=True):
+            result = await dispatch_webhook(
                 accelerator_id=acc.pk,
                 event_type="collision",
                 payload={"count": 1},
@@ -112,45 +113,45 @@ class TestDispatchWebhook:
         assert call_args[0][1]["event_type"] == "collision"
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db(transaction=True)
 class TestProcessEventImage:
-    def test_generates_thumbnail_and_processed(self):
-        image = EventImageFactory()
-        process_event_image(image.pk)
-        image.refresh_from_db()
+    async def test_generates_thumbnail_and_processed(self):
+        image = await sync_to_async(EventImageFactory)()
+        await process_event_image(image.pk)
+        await image.arefresh_from_db()
         assert image.processing_status == ProcessingStatus.COMPLETED
         assert image.thumbnail.name != ""
         assert image.processed_image.name != ""
 
-    def test_handles_failure(self):
-        image = EventImageFactory()
-        image.original_image.delete()
-        process_event_image(image.pk)
-        image.refresh_from_db()
+    async def test_handles_failure(self):
+        image = await sync_to_async(EventImageFactory)()
+        await sync_to_async(image.original_image.delete)()
+        await process_event_image(image.pk)
+        await image.arefresh_from_db()
         assert image.processing_status == ProcessingStatus.FAILED
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db(transaction=True)
 class TestCleanupOrphanedImages:
-    def test_deletes_old_failed_images(self):
-        image = EventImageFactory(processing_status=ProcessingStatus.FAILED)
-        EventImage.objects.filter(pk=image.pk).update(
+    async def test_deletes_old_failed_images(self):
+        image = await sync_to_async(EventImageFactory)(processing_status=ProcessingStatus.FAILED)
+        await EventImage.objects.filter(pk=image.pk).aupdate(
             created_at=timezone.now() - timedelta(days=8),
         )
-        count = cleanup_orphaned_images()
+        count = await cleanup_orphaned_images()
         assert count == 1
-        assert not EventImage.objects.filter(pk=image.pk).exists()
+        assert not await EventImage.objects.filter(pk=image.pk).aexists()
 
-    def test_keeps_recent_failed_images(self):
-        image = EventImageFactory(processing_status=ProcessingStatus.FAILED)
-        count = cleanup_orphaned_images()
+    async def test_keeps_recent_failed_images(self):
+        image = await sync_to_async(EventImageFactory)(processing_status=ProcessingStatus.FAILED)
+        count = await cleanup_orphaned_images()
         assert count == 0
-        assert EventImage.objects.filter(pk=image.pk).exists()
+        assert await EventImage.objects.filter(pk=image.pk).aexists()
 
-    def test_keeps_completed_images(self):
-        image = EventImageFactory(processing_status=ProcessingStatus.COMPLETED)
-        EventImage.objects.filter(pk=image.pk).update(
+    async def test_keeps_completed_images(self):
+        image = await sync_to_async(EventImageFactory)(processing_status=ProcessingStatus.COMPLETED)
+        await EventImage.objects.filter(pk=image.pk).aupdate(
             created_at=timezone.now() - timedelta(days=8),
         )
-        count = cleanup_orphaned_images()
+        count = await cleanup_orphaned_images()
         assert count == 0

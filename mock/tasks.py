@@ -5,6 +5,7 @@ import random
 from decimal import Decimal
 from io import BytesIO
 
+from asgiref.sync import async_to_sync
 from celery import shared_task
 from django.core.files.base import ContentFile
 from django.utils import timezone
@@ -57,7 +58,7 @@ def simulate_collisions() -> int:
 
     experiment_ids = {c.experiment_id for c in collisions}
     for experiment_id in experiment_ids:
-        refresh_experiment_stats(experiment_id)
+        async_to_sync(refresh_experiment_stats)(experiment_id)
 
     total = len(collisions)
     logger.debug("Simulated %d collision(s) across %d experiment(s)", total, len(experiment_ids))

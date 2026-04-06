@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING, Any
 if TYPE_CHECKING:
     from argparse import ArgumentParser
 
+from asgiref.sync import async_to_sync
 from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
 from django.utils import timezone
@@ -22,7 +23,9 @@ from lab.models import (
     Organization,
     OrgType,
 )
-from lab.services import refresh_experiment_stats
+from lab.services import refresh_experiment_stats as _async_refresh_experiment_stats
+
+refresh_experiment_stats = async_to_sync(_async_refresh_experiment_stats)
 
 User = get_user_model()
 
