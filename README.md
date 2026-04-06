@@ -139,7 +139,7 @@ This stack is meant to be the Django stack of the future. Here's what's not yet 
 |---------|---------|--------|-------|
 | Django | 6.0 | **Stable** | Async ORM is `sync_to_async` internally (not true async I/O) |
 | HTMX | 4.0.0-alpha8 | **Alpha** | Officially pre-release, API may change |
-| django-async-backend | 0.0.3 | **Early** | True async DB + `async_atomic`, but very new |
+| django-async-backend | 0.0.3 | **Early** | Async DB connections + `async_atomic`; connection/query layer is genuinely async (psycopg `AsyncConnection`), but some ORM features still fall back to `sync_to_async` |
 | Granian | 2.7.2 | **Stable** | Free-threaded support is experimental |
 | Python | 3.14t | **Stable** | Free-threaded; some packages lack `cp314t` wheels (e.g. `psycopg-binary`) |
 | daisyUI | 5.x | **Stable** | — |
@@ -150,7 +150,7 @@ This stack is meant to be the Django stack of the future. Here's what's not yet 
 
 | Area | Status | Details |
 |------|--------|---------|
-| Async ORM | Working | Via django-async-backend for true async; Django's built-in uses thread pool |
+| Async ORM | Mostly working | django-async-backend provides async connections and query execution via psycopg `AsyncConnection`; some ORM features (e.g. `prefetch_related`) still fall back to `sync_to_async`. Django's built-in async ORM is entirely thread-pool based. |
 | Async transactions | Working | Via `django_async_backend.db.async_atomic`; Django core has no async `transaction.atomic` ([#33882](https://code.djangoproject.com/ticket/33882)) |
 | Async forms | Not started | No `ais_valid()`, `afull_clean()`, `asave()` in Django; proposal filed ([django-formwork#23](https://github.com/oliverhaas/django-formwork/issues/23)) |
 | Async middleware | Done | Django built-ins are async; waffle replaced with async version; allauth already async |
