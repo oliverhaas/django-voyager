@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     "pgtrigger",
     "waffle",
     # Project apps
+    "config",
     "lab",
 ]
 
