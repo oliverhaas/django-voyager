@@ -19,6 +19,7 @@ from lab.models import (
     ExperimentCategory,
     ExperimentStatus,
 )
+from lab.services import refresh_experiment_stats
 
 User = get_user_model()
 
@@ -311,6 +312,10 @@ class Command(BaseCommand):
                 total_created += 1
 
         self.stdout.write(self.style.SUCCESS(f"Seeded {total_created} collision events."))
+
+        # Update denormalized stats
+        for experiment in experiments:
+            refresh_experiment_stats(experiment.pk)
 
     def _seed_superuser(self) -> None:
         if User.objects.filter(username="admin").exists():
