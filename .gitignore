@@ -39,6 +39,7 @@ htmlcov/
 
 # Node (for frontend tooling)
 node_modules/
+staticfiles/
 
 # Docker
 dump.rdb

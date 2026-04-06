@@ -2,6 +2,7 @@ from typing import Any
 
 from django.templatetags.static import static
 from django.urls import reverse
+from django_vite.templatetags.django_vite import vite_asset, vite_hmr_client
 from jinja2 import Environment
 
 
@@ -11,6 +12,8 @@ def environment(**options: Any) -> Environment:
         {
             "static": static,
             "url": reverse,
+            "vite_asset": vite_asset,
+            "vite_hmr_client": vite_hmr_client,
         },
     )
     return env

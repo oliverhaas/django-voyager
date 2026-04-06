@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
       {% block title %}Voyager{% endblock %}
     </title>
+    {{ vite_hmr_client() }}
+    {{ vite_asset("static/src/main.js") }}
     {% block head %}{% endblock %}
   </head>
-  <body>
+  <body class="min-h-screen bg-base-200">
     {% block content %}{% endblock %}
   </body>
 </html>
