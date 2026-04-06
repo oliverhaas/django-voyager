@@ -15,8 +15,8 @@
       <input id="sidebar-toggle" type="checkbox" class="drawer-toggle">
       <div class="drawer-content flex flex-col">
         <!-- Navbar -->
-        <nav class="navbar bg-base-100 shadow-sm lg:hidden">
-          <div class="flex-none">
+        <nav class="navbar bg-base-100 shadow-sm">
+          <div class="flex-none lg:hidden">
             <label for="sidebar-toggle" class="btn btn-square btn-ghost">
               <svg xmlns="http://www.w3.org/2000/svg"
                    fill="none"
@@ -27,34 +27,33 @@
             </label>
           </div>
           <div class="flex-1">
-            <a href="/" class="btn btn-ghost text-xl">Voyager</a>
+            <span class="text-lg font-semibold lg:hidden">Voyager</span>
           </div>
-          {% block navbar_end %}
-            <div class="flex-none">
-              {% if request.user.is_authenticated %}
-                <div class="dropdown dropdown-end">
-                  <div tabindex="0"
-                       role="button"
-                       class="btn btn-ghost btn-circle avatar placeholder">
-                    <div class="bg-neutral text-neutral-content w-8 rounded-full">
-                      <span class="text-xs">{{ request.user.username[:2]|upper }}</span>
-                    </div>
+          <div class="flex-none flex items-center gap-2">
+            <NotificationCenter :request="request" />
+            {% if request.user.is_authenticated %}
+              <div class="dropdown dropdown-end">
+                <div tabindex="0"
+                     role="button"
+                     class="btn btn-ghost btn-circle avatar placeholder">
+                  <div class="bg-neutral text-neutral-content w-8 rounded-full">
+                    <span class="text-xs">{{ request.user.username[:2]|upper }}</span>
                   </div>
-                  <ul tabindex="0"
-                      class="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-52 p-2 shadow">
-                    <li>
-                      <a href="/admin/">Admin</a>
-                    </li>
-                    <li>
-                      <a href="/accounts/logout/">Logout</a>
-                    </li>
-                  </ul>
                 </div>
-              {% else %}
-                <a href="/accounts/login/" class="btn btn-sm btn-primary">Login</a>
-              {% endif %}
-            </div>
-          {% endblock %}
+                <ul tabindex="0"
+                    class="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-52 p-2 shadow">
+                  <li>
+                    <a href="/admin/">Admin</a>
+                  </li>
+                  <li>
+                    <a href="/accounts/logout/">Logout</a>
+                  </li>
+                </ul>
+              </div>
+            {% else %}
+              <a href="/accounts/login/" class="btn btn-sm btn-primary">Login</a>
+            {% endif %}
+          </div>
         </nav>
         <!-- Main content -->
         <main class="flex-1 p-6">
@@ -66,45 +65,7 @@
         <label for="sidebar-toggle"
                aria-label="close sidebar"
                class="drawer-overlay"></label>
-        <aside class="menu bg-base-100 text-base-content min-h-full w-64 p-4">
-          <div class="mb-6">
-            <a href="/" class="flex items-center gap-2 text-xl font-bold px-2">
-              <svg xmlns="http://www.w3.org/2000/svg"
-                   viewBox="0 0 24 24"
-                   fill="currentColor"
-                   class="h-6 w-6 text-primary">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-              </svg>
-              Voyager
-            </a>
-          </div>
-          <ul>
-            <li>
-              <a href="/" class="{{ 'active' if request.path == '/' else '' }}">Dashboard</a>
-            </li>
-            <li>
-              <a href="/experiments/"
-                 class="{{ 'active' if '/experiments' in request.path else '' }}">Experiments</a>
-            </li>
-            <li>
-              <a href="/elements/"
-                 class="{{ 'active' if '/elements' in request.path else '' }}">Elements</a>
-            </li>
-            <li>
-              <a href="/accelerators/"
-                 class="{{ 'active' if '/accelerators' in request.path else '' }}">Accelerators</a>
-            </li>
-          </ul>
-          <div class="divider"></div>
-          <ul>
-            <li>
-              <a href="/admin/">Admin Panel</a>
-            </li>
-            <li>
-              <a href="/api/docs">API Docs</a>
-            </li>
-          </ul>
-        </aside>
+        <Sidebar :request="request" />
       </div>
     </div>
   </body>

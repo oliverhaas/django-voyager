@@ -1,0 +1,50 @@
+{#def request, notifications=None #}
+
+{% set notifs = notifications or [] %}
+{% set unread_count = notifs|selectattr("read", "false")|list|length if notifs else 0 %}
+
+<div class="dropdown dropdown-end" x-data="{ open: false }">
+  <div tabindex="0"
+       role="button"
+       class="btn btn-ghost btn-circle"
+       @click="open = !open">
+    <div class="indicator">
+      <svg xmlns="http://www.w3.org/2000/svg"
+           class="h-5 w-5"
+           fill="none"
+           viewBox="0 0 24 24"
+           stroke="currentColor">
+        <path stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+      </svg>
+      {% if unread_count > 0 %}
+        <span class="badge badge-xs badge-primary indicator-item">{{ unread_count }}</span>
+      {% endif %}
+    </div>
+  </div>
+  <div x-show="open"
+       x-transition
+       @click.outside="open = false"
+       tabindex="0"
+       class="dropdown-content bg-base-100 rounded-box z-10 mt-3 w-80 shadow-lg">
+    <div class="p-3 border-b border-base-200">
+      <h3 class="font-semibold text-sm">Notifications</h3>
+    </div>
+    <ul class="menu menu-sm max-h-64 overflow-y-auto">
+      {% for notif in notifs %}
+        <li>
+          <a class="{{ '' if notif.read else 'font-semibold' }}">
+            <div class="flex flex-col gap-0.5">
+              <span>{{ notif.message }}</span>
+              <span class="text-xs text-base-content/50">{{ notif.time }}</span>
+            </div>
+          </a>
+        </li>
+      {% else %}
+        <li class="p-4 text-center text-sm text-base-content/50">No notifications</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
