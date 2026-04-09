@@ -51,9 +51,10 @@ celery-asyncio = { git = "ssh://git@github.com/oliverhaas/celery-asyncio", branc
 django-admin-boost = { git = "ssh://git@github.com/oliverhaas/django-admin-boost", branch = "main" }
 django-cachex = { git = "ssh://git@github.com/oliverhaas/django-cachex", branch = "main" }
 django-celeryx = { git = "ssh://git@github.com/oliverhaas/django-celeryx", branch = "main" }
-django-filthyfields = { git = "ssh://git@github.com/oliverhaas/django-filthyfields", branch = "main" }
+django-filthyfields = { git = "ssh://git@github.com/oliverhaas/django-dirtyfields", branch = "main" }
 django-formwork = { git = "ssh://git@github.com/oliverhaas/django-formwork", branch = "main" }
 django-iconx = { git = "ssh://git@github.com/oliverhaas/django-iconx", branch = "main" }
+kombu-asyncio = { git = "ssh://git@github.com/oliverhaas/kombu-asyncio", branch = "main" }
 django-nplus1 = { git = "ssh://git@github.com/oliverhaas/django-nplus1", branch = "main" }
 
 [dependency-groups]

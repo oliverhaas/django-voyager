@@ -91,21 +91,16 @@ wheels = [
 
 [[package]]
 name = "celery-asyncio"
-version = "6.0.0a2"
-source = { registry = "https://pypi.org/simple" }
+version = "6.0.0a3"
+source = { git = "ssh://git@github.com/oliverhaas/celery-asyncio?branch=main#e6440225213849572133060061e3620868bd40dd" }
 dependencies = [
     { name = "asgiref" },
     { name = "click" },
     { name = "click-didyoumean" },
     { name = "click-plugins" },
-    { name = "click-repl" },
     { name = "kombu-asyncio" },
     { name = "python-dateutil" },
     { name = "tzlocal" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/bc/b6/d15e3ac5e64528d0c6c90aa4ddab89dba7812fe3d00158b9f78428361b3c/celery_asyncio-6.0.0a2.tar.gz", hash = "sha256:4f6a2be7083a4acd57aa77b05ca8ddada0d05b2471f6bb7e16c3472204f71d95", size = 305548, upload-time = "2026-03-14T12:22:37.068Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/39/6a/2db22d55ddc0a3c66f9a65ad027cf4a71b343ea91d66ec9d52490937d9d3/celery_asyncio-6.0.0a2-py3-none-any.whl", hash = "sha256:e251c02bfe3b6065b606d7eabc2943c2a369b35b64f589e428f34681453b338b", size = 352527, upload-time = "2026-03-14T12:22:35.222Z" },
 ]
 
 [[package]]
@@ -331,14 +326,10 @@ wheels = [
 [[package]]
 name = "django-admin-boost"
 version = "0.1.0a1"
-source = { registry = "https://pypi.org/simple" }
+source = { git = "ssh://git@github.com/oliverhaas/django-admin-boost?branch=main#97dc919308d78ec2eee8c77aa50b2c30ba451611" }
 dependencies = [
     { name = "django" },
     { name = "django-stubs-ext" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/d6/1b/08aa7d3cbf4770d9498b88a8c866e7ed718ed6ec318cdead62a4bec90a43/django_admin_boost-0.1.0a1.tar.gz", hash = "sha256:1892b9620410f2ee3737516f1d962e22c12259b66d60bfb2c0e1754242941472", size = 475717, upload-time = "2026-04-05T13:06:12.873Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/46/79/15c46eeb103a17a0e8ca4f660660e63fb1ef56f2b6e7df8521fd8c135736/django_admin_boost-0.1.0a1-py3-none-any.whl", hash = "sha256:80722cf35e9e527e0b55a21b71664f8bfa85bd1f54c4a7968b4c8df4cd872446", size = 593004, upload-time = "2026-04-05T13:06:11.375Z" },
 ]
 
 [[package]]
@@ -398,13 +389,9 @@ wheels = [
 [[package]]
 name = "django-cachex"
 version = "0.3.0"
-source = { registry = "https://pypi.org/simple" }
+source = { git = "ssh://git@github.com/oliverhaas/django-cachex?branch=main#8d1dfeae0a5dd197451b3b5b8a550bb1686da0aa" }
 dependencies = [
     { name = "django" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/79/1f/6fb661f4c575dc2db1100c0f5b0838228223eae8570089ddf9e5b2c6ca2f/django_cachex-0.3.0.tar.gz", hash = "sha256:a583d130248c7188df3f936e525a4a426a1c540307eaa9629f4704c6ba59c519", size = 97606, upload-time = "2026-02-14T19:54:33.193Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/39/e3/732534e218b8b0e729fab013294cde7d45438f6dbd2a26225937a892ef64/django_cachex-0.3.0-py3-none-any.whl", hash = "sha256:ce839136f6fed341f3307fca65d8071471d9a472cef34be5cab80b7787cc555e", size = 132181, upload-time = "2026-02-14T19:54:31.752Z" },
 ]
 
 [package.optional-dependencies]
@@ -431,66 +418,34 @@ wheels = [
 
 [[package]]
 name = "django-celeryx"
-version = "0.1.0a1"
-source = { registry = "https://pypi.org/simple" }
+version = "0.1.0a2"
+source = { git = "ssh://git@github.com/oliverhaas/django-celeryx?branch=main#2fa0397a11338930445df8b828999b80cc4e913f" }
 dependencies = [
     { name = "django" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/e2/a6/e40e81afbf8280778187ae35e48dda00662d5f1fff626f9ececc6655885e/django_celeryx-0.1.0a1.tar.gz", hash = "sha256:2be79622797031635283da39cabc760eabf79294f8fab939d406e7f0b4f60cce", size = 40369, upload-time = "2026-04-05T13:35:55.072Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/35/a3/bc43c0da7be27f87977086679b043568f9a4f471e37eb03893a88def7cbe/django_celeryx-0.1.0a1-py3-none-any.whl", hash = "sha256:03f256e350a6fe84496930b5add2f1e1b5b265536e3eb2d6b63bc78e2eecd851", size = 55746, upload-time = "2026-04-05T13:35:53.764Z" },
 ]
 
 [[package]]
 name = "django-filthyfields"
 version = "1.9.8b4"
-source = { registry = "https://pypi.org/simple" }
+source = { git = "ssh://git@github.com/oliverhaas/django-dirtyfields?branch=main#9a62cd9ed2cc21a5e81dcc1330a1a158653bff5d" }
 dependencies = [
     { name = "django" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/2f/73/407756dde0335877ad33d425d37274dc79e5a6c4e45722317f169d248e72/django_filthyfields-1.9.8b4.tar.gz", hash = "sha256:0c29b1401c0e8d20518a62958ab4d4f5e1a797764d2427e04059538f2fe8fb2b", size = 10596, upload-time = "2026-04-06T11:57:21.521Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/89/d2/70bd6d03700fe901ce2b02dace83448c692fbb2eecef5ae7a12b43d90257/django_filthyfields-1.9.8b4-py3-none-any.whl", hash = "sha256:b4c1872c8dcd75469782fb05a760b53542d2cfe84465c61c910f48c3d5ce8d06", size = 10130, upload-time = "2026-04-06T11:57:20.444Z" },
 ]
 
 [[package]]
 name = "django-formwork"
 version = "0.1.0a1"
-source = { registry = "https://pypi.org/simple" }
+source = { git = "ssh://git@github.com/oliverhaas/django-formwork?branch=main#a55198c857bb719cb9612d961309e2159288a191" }
 dependencies = [
     { name = "django" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/f0/ae/07f04ee2714040e6ce9306d3c882cd8a13fee7273c204e41a2d8fff461a7/django_formwork-0.1.0a1.tar.gz", hash = "sha256:49f912a2371b896e7e91bfce384e0e550d5436593117f91541c451e62f8a824a", size = 24436, upload-time = "2026-03-15T18:07:33.711Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/40/4c/9a0f05d4bba6002224705c2211bd91a9189d59f0615fa908bbee0a63fb8e/django_formwork-0.1.0a1-py3-none-any.whl", hash = "sha256:ae3823147038e03d75d47be85a689fdda65a0a7871322279845181820a725300", size = 33388, upload-time = "2026-03-15T18:07:32.466Z" },
 ]
 
 [[package]]
 name = "django-iconx"
-version = "0.1.0a1"
-source = { editable = "../django-iconx" }
+version = "0.1.0"
+source = { git = "ssh://git@github.com/oliverhaas/django-iconx?branch=main#00b49c8cd5004bad23d557ca0d5e737207bb7e23" }
 dependencies = [
     { name = "django" },
-]
-
-[package.metadata]
-requires-dist = [{ name = "django", specifier = ">=5.2,<7" }]
-
-[package.metadata.requires-dev]
-dev = [
-    { name = "django-stubs", specifier = "==6.0.1" },
-    { name = "mypy", specifier = "==1.19.1" },
-    { name = "pre-commit", specifier = "==4.5.1" },
-    { name = "pytest", specifier = "==9.0.2" },
-    { name = "pytest-cov", specifier = "==7.1.0" },
-    { name = "pytest-django", specifier = "==4.12.0" },
-    { name = "pytest-xdist", specifier = "==3.8.0" },
-    { name = "ruff", specifier = "==0.15.8" },
-]
-docs = [
-    { name = "mike", specifier = "==2.1.4" },
-    { name = "mkdocs", specifier = "==1.6.1" },
-    { name = "mkdocs-material", specifier = "==9.7.6" },
 ]
 
 [[package]]
@@ -522,14 +477,10 @@ wheels = [
 
 [[package]]
 name = "django-nplus1"
-version = "0.1.0a1"
-source = { registry = "https://pypi.org/simple" }
+version = "0.1.0a2"
+source = { git = "ssh://git@github.com/oliverhaas/django-nplus1?branch=main#9053320417425078b309b5d03eb5e2a27fa0a1e1" }
 dependencies = [
     { name = "django" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/0a/5c/b08dd4d60dcc680042a5abd74a2f593af32e486e02a70a5d4ebfb2631b6e/django_nplus1-0.1.0a1.tar.gz", hash = "sha256:9da6b2526d71e20c5feaad46f0fceb77ede2ec3f64c7ce8a3418fbc92ef247a0", size = 9887, upload-time = "2026-04-05T06:37:50.438Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/ee/11/cb5e94373ff81538415c292066785c3ab9996330c5dd6412df7d21bf5c36/django_nplus1-0.1.0a1-py3-none-any.whl", hash = "sha256:8790088b31a633779b8800f95fbf7066fa0a7c2b5cfa939ae9267b76dca9a6bc", size = 11973, upload-time = "2026-04-05T06:37:49.274Z" },
 ]
 
 [[package]]
@@ -701,22 +652,22 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "celery-asyncio", specifier = "==6.0.0a2" },
+    { name = "celery-asyncio", git = "ssh://git@github.com/oliverhaas/celery-asyncio?branch=main" },
     { name = "django", specifier = "==6.0.3" },
-    { name = "django-admin-boost", specifier = "==0.1.0a1" },
+    { name = "django-admin-boost", git = "ssh://git@github.com/oliverhaas/django-admin-boost?branch=main" },
     { name = "django-allauth", specifier = "==65.15.1" },
     { name = "django-anymail", specifier = "==14.0" },
     { name = "django-async-backend", specifier = "==0.0.3" },
     { name = "django-cachalot", specifier = "==2.9.0" },
-    { name = "django-cachex", extras = ["valkey"], specifier = "==0.3.0" },
+    { name = "django-cachex", extras = ["valkey"], git = "ssh://git@github.com/oliverhaas/django-cachex?branch=main" },
     { name = "django-celery-beat", specifier = "==2.9.0" },
-    { name = "django-celeryx", specifier = "==0.1.0a1" },
-    { name = "django-filthyfields", specifier = "==1.9.8b4" },
-    { name = "django-formwork", specifier = "==0.1.0a1" },
-    { name = "django-iconx", editable = "../django-iconx" },
+    { name = "django-celeryx", git = "ssh://git@github.com/oliverhaas/django-celeryx?branch=main" },
+    { name = "django-filthyfields", git = "ssh://git@github.com/oliverhaas/django-dirtyfields?branch=main" },
+    { name = "django-formwork", git = "ssh://git@github.com/oliverhaas/django-formwork?branch=main" },
+    { name = "django-iconx", git = "ssh://git@github.com/oliverhaas/django-iconx?branch=main" },
     { name = "django-import-export", specifier = "==4.4.0" },
     { name = "django-ninja", specifier = "==1.6.2" },
-    { name = "django-nplus1", specifier = "==0.1.0a1" },
+    { name = "django-nplus1", git = "ssh://git@github.com/oliverhaas/django-nplus1?branch=main" },
     { name = "django-pg-zero-downtime-migrations", specifier = "==0.19" },
     { name = "django-pghistory", specifier = "==3.9.2" },
     { name = "django-pgtrigger", specifier = "==4.17.0" },
@@ -1034,11 +985,11 @@ wheels = [
 
 [[package]]
 name = "kombu-asyncio"
-version = "6.0.0a2"
+version = "6.0.0a3"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/8a/81/1978b6712494215b0ae62c7b046473d969d6a4a32450e6ec73cc10ad8992/kombu_asyncio-6.0.0a2.tar.gz", hash = "sha256:8bff8209c53bb33103a145c0cddbfb46dcf0ffe8444bcf13315d392d3e5cef53", size = 133679, upload-time = "2026-03-14T12:34:32.526Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/1b/9e/c89a24b85396b63280c43a6a153fb5d9594341295214af87d8d1ddb8ae6b/kombu_asyncio-6.0.0a3.tar.gz", hash = "sha256:f9b3cd825920f7e06bba431d3613a25daee775bf7a959148c1ab2d5f394f079b", size = 75524, upload-time = "2026-04-06T18:22:34.758Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/8f/37/21eac1d5fc8ce5c7784e572fd22898af1772e4716d40dcd70a6186f6b47f/kombu_asyncio-6.0.0a2-py3-none-any.whl", hash = "sha256:52df96ffece48e9d49e613dc2dd4ebb2a45b479fbfe485ae80ce6675c3b26423", size = 113712, upload-time = "2026-03-14T12:34:31.269Z" },
+    { url = "https://files.pythonhosted.org/packages/d0/67/897a85fe61f4d93b174826d70bd97824ff5ca832dd719c5b127f8e5292b3/kombu_asyncio-6.0.0a3-py3-none-any.whl", hash = "sha256:d3c8de545b5476ea8559eb487a00886f6f9326b806ba8dd89ea2be534625f274", size = 95204, upload-time = "2026-04-06T18:22:33.345Z" },
 ]
 
 [[package]]
