@@ -47,14 +47,14 @@ dependencies = [
 override-dependencies = ["psycopg-binary ; sys_platform == 'never'"]
 
 [tool.uv.sources]
-celery-asyncio = { git = "https://github.com/oliverhaas/celery-asyncio", branch = "main" }
-django-admin-boost = { git = "https://github.com/oliverhaas/django-admin-boost", branch = "main" }
-django-cachex = { git = "https://github.com/oliverhaas/django-cachex", branch = "main" }
-django-celeryx = { git = "https://github.com/oliverhaas/django-celeryx", branch = "main" }
-django-filthyfields = { git = "https://github.com/oliverhaas/django-filthyfields", branch = "main" }
-django-formwork = { git = "https://github.com/oliverhaas/django-formwork", branch = "main" }
-django-iconx = { git = "https://github.com/oliverhaas/django-iconx", branch = "main" }
-django-nplus1 = { git = "https://github.com/oliverhaas/django-nplus1", branch = "main" }
+celery-asyncio = { git = "ssh://git@github.com/oliverhaas/celery-asyncio", branch = "main" }
+django-admin-boost = { git = "ssh://git@github.com/oliverhaas/django-admin-boost", branch = "main" }
+django-cachex = { git = "ssh://git@github.com/oliverhaas/django-cachex", branch = "main" }
+django-celeryx = { git = "ssh://git@github.com/oliverhaas/django-celeryx", branch = "main" }
+django-filthyfields = { git = "ssh://git@github.com/oliverhaas/django-filthyfields", branch = "main" }
+django-formwork = { git = "ssh://git@github.com/oliverhaas/django-formwork", branch = "main" }
+django-iconx = { git = "ssh://git@github.com/oliverhaas/django-iconx", branch = "main" }
+django-nplus1 = { git = "ssh://git@github.com/oliverhaas/django-nplus1", branch = "main" }
 
 [dependency-groups]
 dev = [
