@@ -3,7 +3,6 @@ from typing import Any
 
 from django.templatetags.static import static
 from django.urls import reverse
-from django_iconx.templatetags.iconx import icon
 from django_vite.templatetags.django_vite import vite_asset, vite_hmr_client
 from jinja2 import Environment
 from jinjax import Catalog
@@ -15,7 +14,6 @@ def _make_catalog(env: Environment) -> Catalog:
     """Create a fresh JinjaX catalog bound to the given environment."""
     cat = Catalog(
         jinja_env=env,
-        globals={"icon": icon},
     )
     cat.add_folder(BASE_DIR / "components")
     return cat
@@ -38,7 +36,6 @@ def environment(**options: Any) -> Environment:
             "url": reverse,
             "catalog": catalog,
             "vite_asset": vite_asset,
-            "icon": icon,
             "vite_hmr_client": vite_hmr_client,
         },
     )
