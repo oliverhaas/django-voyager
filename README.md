@@ -57,6 +57,10 @@ docker compose up -d
 uv run python manage.py migrate
 uv run python manage.py seed --full
 
+# Download icon packages and generate CSS
+uv run python manage.py iconx add lucide
+uv run python manage.py iconx generate
+
 # Build frontend
 npm install
 npm run build

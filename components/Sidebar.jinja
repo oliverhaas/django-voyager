@@ -3,7 +3,7 @@
 <aside class="menu bg-base-100 text-base-content min-h-full w-64 p-4">
   <div class="mb-6">
     <a href="/" class="flex items-center gap-2 text-xl font-bold px-2">
-      {{ icon("lucide-atom", class="h-6 w-6 text-primary") }}
+      <i class="icon icon-lucide-atom h-6 w-6 text-primary"></i>
       Voyager
     </a>
   </div>
@@ -11,28 +11,28 @@
     <li>
       <a href="/"
          class="{{ 'active' if request.path == '/' else '' }}">
-        {{ icon("lucide-layout-dashboard", class="h-4 w-4") }}
+        <i class="icon icon-lucide-layout-dashboard h-4 w-4"></i>
         Dashboard
       </a>
     </li>
     <li>
       <a href="/experiments/"
          class="{{ 'active' if '/experiments' in request.path else '' }}">
-        {{ icon("lucide-flask-conical", class="h-4 w-4") }}
+        <i class="icon icon-lucide-flask-conical h-4 w-4"></i>
         Experiments
       </a>
     </li>
     <li>
       <a href="/elements/"
          class="{{ 'active' if '/elements' in request.path else '' }}">
-        {{ icon("lucide-circle-dot", class="h-4 w-4") }}
+        <i class="icon icon-lucide-circle-dot h-4 w-4"></i>
         Elements
       </a>
     </li>
     <li>
       <a href="/accelerators/"
          class="{{ 'active' if '/accelerators' in request.path else '' }}">
-        {{ icon("lucide-zap", class="h-4 w-4") }}
+        <i class="icon icon-lucide-zap h-4 w-4"></i>
         Accelerators
       </a>
     </li>
@@ -41,13 +41,13 @@
   <ul>
     <li>
       <a href="/admin/">
-        {{ icon("lucide-settings", class="h-4 w-4") }}
+        <i class="icon icon-lucide-settings h-4 w-4"></i>
         Admin Panel
       </a>
     </li>
     <li>
       <a href="/api/docs">
-        {{ icon("lucide-file-text", class="h-4 w-4") }}
+        <i class="icon icon-lucide-file-text h-4 w-4"></i>
         API Docs
       </a>
     </li>

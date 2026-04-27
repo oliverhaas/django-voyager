@@ -41,6 +41,10 @@ htmlcov/
 node_modules/
 staticfiles/
 
+# django-iconx output (regenerate via `manage.py iconx add lucide` + `manage.py iconx generate`)
+static/icons/
+static/iconx/
+
 # Docker
 dump.rdb
 

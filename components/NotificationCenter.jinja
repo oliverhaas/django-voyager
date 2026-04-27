@@ -9,7 +9,7 @@
        class="btn btn-ghost btn-circle"
        @click="open = !open">
     <div class="indicator">
-      {{ icon("lucide-bell", class="h-5 w-5") }}
+      <i class="icon icon-lucide-bell h-5 w-5"></i>
       {% if unread_count > 0 %}
         <span class="badge badge-xs badge-primary indicator-item">{{ unread_count }}</span>
       {% endif %}

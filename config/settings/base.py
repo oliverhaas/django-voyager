@@ -13,6 +13,7 @@ ALLOWED_HOSTS: list[str] = []
 
 INSTALLED_APPS = [
     # Django admin (via django-admin-boost)
+    "django.contrib.admin",
     "django_admin_boost.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -140,7 +141,6 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
-    ("icons", BASE_DIR / "node_modules/lucide-static/icons"),
 ]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
